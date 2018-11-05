@@ -177,16 +177,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Sdq-6D-FWe"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Reciplease" id="w8C-bi-Kbi"/>
+                    <navigationItem key="navigationItem" title="Reciplease" id="w8C-bi-Kbi">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="O2H-XB-XMo"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OJg-LA-FGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="757.60000000000002" y="-612.14392803598207"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Reciplease-->
         <scene sceneID="zgu-md-OI1">
             <objects>
-                <tableViewController id="UlF-26-67k" sceneMemberID="viewController">
+                <tableViewController title="Reciplease" id="UlF-26-67k" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7mc-Ze-NAJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
