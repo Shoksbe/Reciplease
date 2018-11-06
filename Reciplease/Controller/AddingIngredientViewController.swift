@@ -21,17 +21,43 @@ class AddingIngredientViewController: UIViewController {
         saveIngredient()
     }
     
+    @IBAction func clearButtonDidPressed(_ sender: UIButton) {
+       clearListOfIngredients()
+    }
+    
+    // MARK: - Methods
+    
     //Save ingredient in ingredients array and reloadData
     private func saveIngredient() {
-        guard let ingredient = ingredientTextField.text else { return }
-        ingredients.append(ingredient)
         
-        //Reload tableView to add new ingredient
+        guard var ingredientToAdd = ingredientTextField.text else { return }
+
+        if ingredientToAdd.containsCharacter {
+            
+            //Trim whitespaces
+            ingredientToAdd = ingredientToAdd.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            ingredients.append(ingredientToAdd)
+            
+            //Reload tableView to add new ingredient
+            tableView.reloadData()
+        }
+    }
+    
+    //Remove all ingredient's array
+    func clearListOfIngredients() {
+        
+        //emptying the array
+        ingredients.removeAll()
+        
+        //Reload tableView, she's now empty
         tableView.reloadData()
     }
 }
 
+// MARK: - TableView DataSource
 extension AddingIngredientViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingredients.count
     }
@@ -43,6 +69,11 @@ extension AddingIngredientViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
+}
+
+// MARK: - Extension for String
+extension String {
+    var containsCharacter: Bool {
+        return self.rangeOfCharacter(from: CharacterSet.letters) != nil
+    }
 }
