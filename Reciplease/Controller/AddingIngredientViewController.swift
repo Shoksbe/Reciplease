@@ -9,22 +9,20 @@
 import UIKit
 
 class AddingIngredientViewController: UIViewController {
+    
+    var ingredients = [String]()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    // MARK: - Outlets
+    @IBOutlet weak var ingredientTextField: UITextField!
+    
+    // MARK: - Actions
+    @IBAction func buttonDidPressed(_ sender: UIButton) {
+        saveIngredient()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //Save ingredient in ingredients array and reloadData
+    private func saveIngredient() {
+        guard let ingredient = ingredientTextField.text else { return }
+        ingredients.append(ingredient)
     }
-    */
-
 }
