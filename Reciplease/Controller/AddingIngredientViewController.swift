@@ -14,6 +14,7 @@ class AddingIngredientViewController: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var ingredientTextField: UITextField!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Actions
     @IBAction func buttonDidPressed(_ sender: UIButton) {
@@ -24,5 +25,24 @@ class AddingIngredientViewController: UIViewController {
     private func saveIngredient() {
         guard let ingredient = ingredientTextField.text else { return }
         ingredients.append(ingredient)
+        
+        //Reload tableView to add new ingredient
+        tableView.reloadData()
     }
+}
+
+extension AddingIngredientViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ingredients.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientTableViewCell
+        
+        cell.ingredientName.text = ingredients[indexPath.row]
+        
+        return cell
+    }
+    
+    
 }
