@@ -9,8 +9,6 @@
 import UIKit
 
 class AddingIngredientViewController: UIViewController {
-    
-    var ingredients = [String]()
 
     // MARK: - Outlets
     @IBOutlet weak var ingredientTextField: UITextField!
@@ -46,7 +44,7 @@ class AddingIngredientViewController: UIViewController {
             ingredientToAdd = ingredientToAdd.trimmingCharacters(in: .whitespacesAndNewlines)
             
             //Adding ingredient to the array
-            ingredients.append(ingredientToAdd)
+            FridgeService.shared.add(ingredient: ingredientToAdd)
             
             //Reload tableView to add new ingredient
             tableView.reloadData()
@@ -60,7 +58,7 @@ class AddingIngredientViewController: UIViewController {
     func clearListOfIngredients() {
         
         //emptying the array
-        ingredients.removeAll()
+        FridgeService.shared.removeAll()
         
         //Reload tableView, she's now empty
         tableView.reloadData()
@@ -76,13 +74,15 @@ class AddingIngredientViewController: UIViewController {
 extension AddingIngredientViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+        return FridgeService.shared.ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientTableViewCell
         
-        cell.ingredientName.text = ingredients[indexPath.row]
+        let ingredient = FridgeService.shared.ingredients[indexPath.row]
+        
+        cell.ingredientName.text = ingredient
         
         return cell
     }
