@@ -25,11 +25,19 @@ class AddingIngredientViewController: UIViewController {
        clearListOfIngredients()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //Gesture to remove keyboard
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
     // MARK: - Methods
     
     //Save ingredient in ingredients array and reloadData
     private func saveIngredient() {
-        
+ 
         guard var ingredientToAdd = ingredientTextField.text else { return }
 
         if ingredientToAdd.containsCharacter {
@@ -37,11 +45,15 @@ class AddingIngredientViewController: UIViewController {
             //Trim whitespaces
             ingredientToAdd = ingredientToAdd.trimmingCharacters(in: .whitespacesAndNewlines)
             
+            //Adding ingredient to the array
             ingredients.append(ingredientToAdd)
             
             //Reload tableView to add new ingredient
             tableView.reloadData()
         }
+        
+        //Clear textfield
+        ingredientTextField.text?.removeAll()
     }
     
     //Remove all ingredient's array
@@ -52,6 +64,11 @@ class AddingIngredientViewController: UIViewController {
         
         //Reload tableView, she's now empty
         tableView.reloadData()
+    }
+    
+    @objc private func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 }
 
@@ -76,4 +93,14 @@ extension String {
     var containsCharacter: Bool {
         return self.rangeOfCharacter(from: CharacterSet.letters) != nil
     }
+}
+
+// MARK: - TextFieldDelegate
+extension AddingIngredientViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        saveIngredient()
+        return false
+    }
+    
 }
