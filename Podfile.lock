@@ -1,3 +1,16 @@
-PODFILE CHECKSUM: ecfda2b3096ed2c66a86c794f0ae20e55ffb38dc
+PODS:
+  - Alamofire (4.7.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.7)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+
+SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+
+PODFILE CHECKSUM: 0c95698308b571a56301826a9b27f87603264c14
 
 COCOAPODS: 1.5.3
