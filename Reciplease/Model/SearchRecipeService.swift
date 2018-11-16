@@ -17,7 +17,7 @@ class SearchRecipeService {
     func SearchRecipe(ingredient: [String], callback: @escaping (Bool, [Recipe]?, String?) -> Void) {
 
         //Parameters for request, ingredients and requirePictures
-        let parameters: Parameters = ["q":ingredient, "requirePictures": true]
+        let parameters: Parameters = ["q":ingredient, "requirePictures": true, "maxResult":"100"]
 
         //Header for request, contain app id and app key
         let header: HTTPHeaders = ["X-Yummly-App-ID":"252dd2e6",
@@ -32,6 +32,12 @@ class SearchRecipeService {
                           headers: header)
             .validate()
             .responseJSON { (response) in
+                
+                guard response.result.isSuccess else {
+                    print("Error while fetching data.")
+                    callback(false, nil, "Error while fetching data")
+                    return
+                }
 
                 guard let data = response.data else {
                     callback(false, nil,  "No data")
@@ -54,17 +60,28 @@ class SearchRecipeService {
         }
     }
 
-    func getRecipeDataFrom(_ parsedData: SearchRecipeDecodable) -> [Recipe] {
+    private func getRecipeDataFrom(_ parsedData: SearchRecipeDecodable) -> [Recipe] {
         var recipes: [Recipe] = []
         for recipe in parsedData.matches {
-            recipes.append(Recipe(
-                id: recipe.id,
-                recipeName: recipe.recipeName,
-                ingredients: recipe.ingredients,
-                totalTimeInSeconds: recipe.totalTimeInSeconds,
-                rating: recipe.rating,
-                imageUrl: recipe.imageUrlsBySize.the90)
-            )
+
+            var backgroundImage: UIImage!
+
+            if let url = URL(string: recipe.imageUrlsBySize.the90) {
+                if let data = try? Data(contentsOf: url) {
+                    backgroundImage = UIImage(data: data)!
+
+                    recipes.append(Recipe(
+                        id: recipe.id,
+                        recipeName: recipe.recipeName,
+                        ingredients: recipe.ingredients,
+                        totalTimeInSeconds: recipe.totalTimeInSeconds,
+                        rating: recipe.rating,
+                        image: backgroundImage)
+                    )
+                }
+            }
+
+
         }
         return recipes
     }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Recipe {
     let id: String
@@ -14,5 +15,5 @@ struct Recipe {
     let ingredients: [String]
     let totalTimeInSeconds: Int
     let rating: Int
-    let imageUrl: String
+    let image: UIImage
 }
