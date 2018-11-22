@@ -14,10 +14,10 @@ class SearchRecipeService {
     static var shared = SearchRecipeService()
     private init() {}
     
-    func SearchRecipe(ingredient: [String], callback: @escaping (Bool, [Recipe]?, String?) -> Void) {
+    func SearchRecipe(with ingredient: [String], callback: @escaping (Bool, [Recipe]?, String?) -> Void) {
 
         //Parameters for request, ingredients and requirePictures
-        let parameters: Parameters = ["q":ingredient, "requirePictures": true, "maxResult":"100"]
+        let parameters: Parameters = ["q":ingredient, "requirePictures": true, "maxResult":"10"]
 
         //Header for request, contain app id and app key
         let header: HTTPHeaders = ["X-Yummly-App-ID":"252dd2e6",
