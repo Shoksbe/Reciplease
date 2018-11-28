@@ -58,6 +58,11 @@ class RecipesCollectionViewController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let recipeToDetails = recipes[indexPath.row]
+        performSegue(withIdentifier: "ShowRecipeDetails", sender: recipeToDetails)
+    }
+    
 
 
     ///Displays errors
@@ -69,6 +74,8 @@ class RecipesCollectionViewController: UICollectionViewController {
 
 }
 
+// MARK: - UICollectionViewFlowLayout
+
 extension RecipesCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -76,4 +83,20 @@ extension RecipesCollectionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: (collectionView.bounds.size.width / 2) - 15, height: CGFloat(kWhateverHeightYouWant))
     }
     
+}
+
+// MARK: - Segue
+
+extension RecipesCollectionViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        guard segue.identifier == "ShowRecipeDetails" else { return }
+
+        guard let destinationSegue = segue.destination as? ShowDetailsViewController else { return }
+
+        guard let recipe = sender as? Recipe else { return }
+
+        destinationSegue.recipeToDetail = recipe
+
+    }
 }
