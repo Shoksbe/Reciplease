@@ -12,11 +12,13 @@ class ShowDetailsViewController: UIViewController {
     
     var recipeToDetail: Recipe!
 
+    @IBOutlet weak var recipeImage: UIImageView!
+    @IBOutlet weak var recipeName: UILabel!
+    @IBOutlet weak var tableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Get recipe's details
-
     }
 
 }
