@@ -29,44 +29,44 @@ class GetRecipeDetailsService {
                           headers: header)
             .validate()
             .responseJSON { (response) in
-                
+
+                //Check if the api call return something
                 guard response.result.isSuccess else {
                     print("Error while fetching data.")
                     callback(false, nil, "Error while fetching data")
                     return
                 }
-                
+
+                //Check if the response contain data
                 guard let data = response.data else {
                     callback(false, nil,  "No data")
                     return
                 }
-                
+
+                //Decode the response's data
                 guard let responseJSON = try? JSONDecoder().decode(GetRecipeDetailsDecodable.self, from: data) else {
                     callback(false, nil,  "Error parse JSON")
                     return
                 }
-                
+
+                //Return the file decoded
                 callback(true, self.getRecipeDetailsFrom(responseJSON), nil)
                 
         }
     }
     
-    
     private func getRecipeDetailsFrom(_ parsedData: GetRecipeDetailsDecodable) -> RecipeWithDetails {
-        
+
         let recipeWithDetails = RecipeWithDetails(
-            yield: parsedData.yield,
-            totalTime: parsedData.totalTime,
             smallImageUrl: parsedData.images[0].hostedSmallURL,
             mediumImageUrl: parsedData.images[0].hostedMediumURL,
             largeImageUrl: parsedData.images[0].hostedLargeURL,
             name: parsedData.name,
             id: parsedData.id,
             ingredientLines: parsedData.ingredientLines,
-            numberOfServings: parsedData.numberOfServings,
             totalTimeInSeconds: parsedData.totalTimeInSeconds,
             rating: parsedData.rating)
-        
+
         return recipeWithDetails
     }
 }
