@@ -17,4 +17,5 @@ struct RecipeWithDetails {
     let ingredientLines: [String]
     let totalTimeInSeconds: Int?
     let rating: Int?
+    let sourceRecipeUrl: String
 }

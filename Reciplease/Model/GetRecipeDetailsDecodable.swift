@@ -15,6 +15,7 @@ struct GetRecipeDetailsDecodable: Codable {
     let ingredientLines: [String]
     let totalTimeInSeconds: Int?
     let rating: Int?
+    let source: Source
 }
 
 
@@ -28,6 +29,10 @@ struct Image: Codable {
         case hostedLargeURL = "hostedLargeUrl"
         case imageUrlsBySize
     }
+}
+
+struct Source: Codable {
+    let sourceRecipeUrl: String
 }
 
 

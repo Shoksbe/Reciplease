@@ -38,6 +38,21 @@ class ShowDetailsViewController: UIViewController {
             }
         }
     }
+
+    @IBAction func didTapRecipe(_ sender: UIButton) {
+        guard let url = URL(string: recipeWithDetails.sourceRecipeUrl) else {
+            showAlertError(message: "Can not find the destination url")
+            return
+        }
+        UIApplication.shared.open(url)
+    }
+
+    ///Displays errors
+    @objc private func showAlertError(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 // MARK: - Tableview datasource

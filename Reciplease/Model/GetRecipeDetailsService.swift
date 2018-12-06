@@ -65,7 +65,8 @@ class GetRecipeDetailsService {
             id: parsedData.id,
             ingredientLines: parsedData.ingredientLines,
             totalTimeInSeconds: parsedData.totalTimeInSeconds,
-            rating: parsedData.rating)
+            rating: parsedData.rating,
+            sourceRecipeUrl: parsedData.source.sourceRecipeUrl)
 
         return recipeWithDetails
     }

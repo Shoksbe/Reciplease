@@ -425,6 +425,9 @@
                                         <state key="normal" title="Get directions">
                                             <color key="titleColor" red="0.99215686270000003" green="0.99607843139999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didTapRecipe:" destination="ywp-5V-PYf" eventType="touchUpInside" id="7RK-1d-13g"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.3366101199" green="0.3399428934" blue="0.3399428934" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
