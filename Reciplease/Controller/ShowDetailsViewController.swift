@@ -49,14 +49,13 @@ class ShowDetailsViewController: UIViewController {
     }
 
     @IBAction func didTapFavoriteIcon(_ sender: UIButton) {
-        //Toggle button
-        SaveRecipe(recipeWithDetails)
-        //Or
-        //Unsave recipe
+        if SaveRecipe(recipeWithDetails) {
+            favoriteIcon.setImage(UIImage(named: "Favorite Activate"), for: .normal)
+        }
     }
     
     //Save recipe
-    func SaveRecipe(_ recipeToSave: RecipeWithDetails){
+    func SaveRecipe(_ recipeToSave: RecipeWithDetails)-> Bool{
         
         //Check data
         var likes: String?
@@ -84,10 +83,13 @@ class ShowDetailsViewController: UIViewController {
         //Try to save data
         do {
             try AppDelegate.viewContext.save()
+            return true
         } catch let erreur  {
             showAlertError(message: "Save failed")
             print(erreur.localizedDescription)
         }
+        
+        return false
     }
     
     ///Displays errors
