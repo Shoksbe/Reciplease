@@ -28,7 +28,8 @@ class ShowDetailsViewController: UIViewController {
             if success, let recipeDetails = recipeWithDetails {
 
                 self.recipeWithDetails = recipeDetails
-
+                
+                // TODO: Create only one imageUrl in getRecipeService
                 guard let url = URL(string: recipeDetails.largeImageUrl!) else { return }
                 guard let data = try? Data(contentsOf: url) else { return }
 
@@ -41,21 +42,33 @@ class ShowDetailsViewController: UIViewController {
     }
 
     @IBAction func didTapRecipe(_ sender: UIButton) {
+        //Check existence of url's recipe
         guard let url = URL(string: recipeWithDetails.sourceRecipeUrl) else {
             showAlertError(message: "Can not find the destination url")
             return
         }
+        //Launch url's recipe
         UIApplication.shared.open(url)
     }
 
     @IBAction func didTapFavoriteIcon(_ sender: UIButton) {
-        if SaveRecipe(recipeWithDetails) {
+        
+        if RecipeAlreadySaved() {
+            // TODO: Unsave recipe
+            
+            //Desactivate favorite icon
+            favoriteIcon.setImage(UIImage(named: "Favorite Desactivate"), for: .normal)
+        } else {
+            //Save recipe
+            SaveRecipe(recipeWithDetails)
+
+            //Activate favorite icon
             favoriteIcon.setImage(UIImage(named: "Favorite Activate"), for: .normal)
         }
     }
     
     //Save recipe
-    func SaveRecipe(_ recipeToSave: RecipeWithDetails)-> Bool{
+    private func SaveRecipe(_ recipeToSave: RecipeWithDetails){
         
         //Check data
         var likes: String?
@@ -83,13 +96,14 @@ class ShowDetailsViewController: UIViewController {
         //Try to save data
         do {
             try AppDelegate.viewContext.save()
-            return true
         } catch let erreur  {
             showAlertError(message: "Save failed")
             print(erreur.localizedDescription)
         }
-        
-        return false
+    }
+    
+    private func RecipeAlreadySaved() -> Bool {
+        return RecipeSave.CheckExistenceOf(recipeName: recipeWithDetails.name)
     }
     
     ///Displays errors
