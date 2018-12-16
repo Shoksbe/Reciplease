@@ -48,6 +48,48 @@ class ShowDetailsViewController: UIViewController {
         UIApplication.shared.open(url)
     }
 
+    @IBAction func didTapFavoriteIcon(_ sender: UIButton) {
+        //Toggle button
+        SaveRecipe(recipeWithDetails)
+        //Or
+        //Unsave recipe
+    }
+    
+    //Save recipe
+    func SaveRecipe(_ recipeToSave: RecipeWithDetails){
+        
+        //Check data
+        var likes: String?
+        var timeInSecond: String?
+        
+        if let rating = recipeToSave.rating {
+            likes = String(rating)
+        }
+        
+        if let time = recipeToSave.totalTimeInSeconds {
+            timeInSecond = String(time)
+        }
+        
+        //Create context
+        let recipeSave = RecipeSave(context: AppDelegate.viewContext)
+        
+        //Implemente context
+        recipeSave.id = recipeWithDetails.id
+        recipeSave.ingredients = recipeWithDetails.ingredientLines.joined(separator: ",")
+        recipeSave.likes = likes
+        recipeSave.name = recipeWithDetails.name
+        recipeSave.timeInSecond = timeInSecond
+        recipeSave.imageUrl = recipeWithDetails.largeImageUrl
+        
+        //Try to save data
+        do {
+            try AppDelegate.viewContext.save()
+        } catch let erreur  {
+            showAlertError(message: "Save failed")
+            print(erreur.localizedDescription)
+        }
+    }
+    
     ///Displays errors
     @objc private func showAlertError(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)

@@ -354,7 +354,7 @@
                                     <constraint firstAttribute="width" constant="40" id="gUo-5F-z0U"/>
                                     <constraint firstAttribute="height" constant="40" id="jL5-YS-VCK"/>
                                 </constraints>
-                                <state key="normal" title="*" image="Favorite Desactivate"/>
+                                <state key="normal" image="Favorite Desactivate"/>
                                 <connections>
                                     <action selector="didTapFavoriteIcon:" destination="ywp-5V-PYf" eventType="touchUpInside" id="2vU-p3-vFF"/>
                                 </connections>
