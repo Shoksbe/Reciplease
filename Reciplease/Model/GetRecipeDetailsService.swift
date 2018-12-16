@@ -70,4 +70,21 @@ class GetRecipeDetailsService {
 
         return recipeWithDetails
     }
+
+    private func recoveryOfTheLargestImageUrl(_ parsedData: GetRecipeDetailsDecodable) -> URL? {
+
+        var urlString: String?
+
+        let images = parsedData.images[0]
+        urlString = images.hostedSmallURL != nil ? images.hostedSmallURL : urlString
+        urlString = images.hostedMediumURL != nil ? images.hostedMediumURL : urlString
+        urlString = images.hostedLargeURL != nil ? images.hostedLargeURL : urlString
+
+        if let url = urlString {
+            return URL(string: url)
+        }
+
+        return nil
+
+    }
 }
