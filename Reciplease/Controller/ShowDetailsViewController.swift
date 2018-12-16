@@ -18,7 +18,8 @@ class ShowDetailsViewController: UIViewController {
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var tableview: UITableView!
-
+    @IBOutlet weak var favoriteIcon: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
