@@ -54,7 +54,8 @@ class ShowDetailsViewController: UIViewController {
     @IBAction func didTapFavoriteIcon(_ sender: UIButton) {
         
         if recipeAlreadySaved() {
-            // TODO: Unsave recipe
+            //Unsave recipe
+            unsaveRecipe()
             
             //Desactivate favorite icon
             favoriteIcon.setImage(UIImage(named: "Favorite Desactivate"), for: .normal)
@@ -64,6 +65,12 @@ class ShowDetailsViewController: UIViewController {
             
             //Activate favorite icon
             favoriteIcon.setImage(UIImage(named: "Favorite Activate"), for: .normal)
+        }
+    }
+    
+    private func unsaveRecipe() {
+        if !RecipeSave.delete(recipeWithDetails) {
+            showAlertError(message: "Faile to delete recipe.")
         }
     }
     

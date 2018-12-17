@@ -67,4 +67,31 @@ class RecipeSave: NSManagedObject {
         
         return count > 0
     }
+    
+    static func delete(_ recipe: RecipeWithDetails)-> Bool {
+        
+        //Request
+        let request: NSFetchRequest<RecipeSave> = RecipeSave.fetchRequest()
+        
+        //Predicate
+        request.predicate = NSPredicate(format: "id == %@", recipe.id)
+        
+        //Fetch request
+        guard let recipe = try? AppDelegate.viewContext.fetch(request) else {
+            print("Error when delete recipe.")
+            return false
+        }
+        
+        //Delete recipe
+        AppDelegate.viewContext.delete(recipe[0])
+
+        //Try to save context
+        do {
+            try AppDelegate.viewContext.save()
+        } catch let error {
+            print("Delete recipe failed:", error)
+        }
+        
+        return true
+    }
 }
