@@ -11,8 +11,9 @@ import UIKit
 class RecipesViewController: UIViewController {
 
     var recipes: [Recipe]!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,7 @@ class RecipesViewController: UIViewController {
             (success, recipes, errorDescription) in
             if success, let searchResult = recipes {
                 self.recipes = searchResult
-                self.collectionView.reloadData()
+                self.tableView.reloadData()
                 self.shownActivityController(false)
             } else {
                 guard let errorDescription = errorDescription else { return }
@@ -41,10 +42,10 @@ class RecipesViewController: UIViewController {
     private func shownActivityController(_ show: Bool) {
         if show {
             activityIndicator.isHidden = false
-            collectionView.isHidden = true
+            tableView.isHidden = true
         } else {
             activityIndicator.isHidden = true
-            collectionView.isHidden = false
+            tableView.isHidden = false
         }
     }
     
@@ -57,35 +58,33 @@ class RecipesViewController: UIViewController {
     
 }
 
-// MARK: UICollectionViewDataSource
+// MARK: UITableview Datasource and Delegate
 
-extension RecipesViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let number = recipes?.count else { return 0 }
         return number
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //Create the cell
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeCell", for: indexPath) as! RecipeCollectionViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
         
         // Configure the cell
         
         let recipe = recipes[indexPath.row]
         
-        cell.image.image = recipe.image
+        cell.backgroundImage.image = recipe.image
         cell.recipeName.text = recipe.recipeName
         cell.ingredients.text = recipe.ingredients.joined(separator: ",")
-        cell.timeToMakeRecipe.text = String(recipe.totalTimeInSeconds)
-        cell.likeCount.text = String(recipe.rating)
+        cell.timeToMakeRecipe.text = String(recipe.totalTimeInSeconds/60) + "min"
+        cell.likeCount.text = String(recipe.rating) + "/5"
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipeToDetails = recipes[indexPath.row]
         performSegue(withIdentifier: "ShowRecipeDetails", sender: recipeToDetails)
     }
