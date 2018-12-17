@@ -19,10 +19,13 @@ class ShowDetailsViewController: UIViewController {
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var favoriteIcon: UIButton!
+    @IBOutlet weak var activityIndicator: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        shownActivityController(true)
+        
         // Get recipe's details
         GetRecipeDetailsService.shared.getRecipeDetails(of: recipeToDetail) { (success, recipeWithDetails, error) in
             if success, let recipeDetails = recipeWithDetails {
@@ -37,6 +40,8 @@ class ShowDetailsViewController: UIViewController {
                 self.recipeImage.image = recipeDetails.image
 
                 self.tableview.reloadData()
+                
+                self.shownActivityController(false)
             }
         }
     }
@@ -65,6 +70,14 @@ class ShowDetailsViewController: UIViewController {
             
             //Activate favorite icon
             activateFavoriteIcon(true)
+        }
+    }
+    
+    private func shownActivityController(_ show: Bool) {
+        if show {
+            activityIndicator.isHidden = false
+        } else {
+            activityIndicator.isHidden = true
         }
     }
     
