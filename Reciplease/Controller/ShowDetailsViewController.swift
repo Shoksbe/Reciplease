@@ -29,6 +29,10 @@ class ShowDetailsViewController: UIViewController {
 
                 self.recipeWithDetails = recipeDetails
                 
+                if self.recipeAlreadySaved() {
+                    self.activateFavoriteIcon(true)
+                }
+                
                 // TODO: Create only one imageUrl in getRecipeService
                 guard let url = URL(string: recipeDetails.largeImageUrl!) else { return }
                 guard let data = try? Data(contentsOf: url) else { return }
@@ -58,13 +62,13 @@ class ShowDetailsViewController: UIViewController {
             unsaveRecipe()
             
             //Desactivate favorite icon
-            favoriteIcon.setImage(UIImage(named: "Favorite Desactivate"), for: .normal)
+            activateFavoriteIcon(false)
         } else {
             //Save recipe
             saveRecipe()
             
             //Activate favorite icon
-            favoriteIcon.setImage(UIImage(named: "Favorite Activate"), for: .normal)
+            activateFavoriteIcon(true)
         }
     }
     
@@ -82,6 +86,14 @@ class ShowDetailsViewController: UIViewController {
     
     private func recipeAlreadySaved() -> Bool {
         return RecipeSave.checkExistenceOf(recipeName: recipeWithDetails.name)
+    }
+    
+    private func activateFavoriteIcon(_ musteBeActived: Bool) {
+        if musteBeActived {
+            favoriteIcon.setImage(UIImage(named: "Favorite Activate"), for: .normal)
+        } else {
+            favoriteIcon.setImage(UIImage(named: "Favorite Desactivate"), for: .normal)
+        }
     }
     
     ///Displays errors
