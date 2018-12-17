@@ -55,7 +55,7 @@ class AddingIngredientViewController: UIViewController {
     }
     
     //Remove all ingredient's array
-    func clearListOfIngredients() {
+    private func clearListOfIngredients() {
         
         //emptying the array
         FridgeService.shared.removeAll()

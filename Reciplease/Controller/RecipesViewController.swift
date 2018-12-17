@@ -114,7 +114,7 @@ extension RecipesViewController {
         
         guard let recipe = sender as? Recipe else { return }
         
-        destinationSegue.recipeToDetail = recipe
+        destinationSegue.recipeToDetailId = recipe.id
         
     }
 }

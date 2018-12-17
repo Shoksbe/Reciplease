@@ -11,7 +11,7 @@ import UIKit
 class ShowDetailsViewController: UIViewController {
 
     // Variables: - UICollectionViewFlowLayout
-    var recipeToDetail: Recipe!
+    var recipeToDetailId: String!
     var recipeWithDetails: RecipeWithDetails!
 
     // MARK: - Outlets
@@ -27,7 +27,7 @@ class ShowDetailsViewController: UIViewController {
         shownActivityController(true)
         
         // Get recipe's details
-        GetRecipeDetailsService.shared.getRecipeDetails(of: recipeToDetail) { (success, recipeWithDetails, error) in
+        GetRecipeDetailsService.shared.getRecipeDetails(of: recipeToDetailId) { (success, recipeWithDetails, error) in
             if success, let recipeDetails = recipeWithDetails {
 
                 self.recipeWithDetails = recipeDetails
