@@ -53,57 +53,28 @@ class ShowDetailsViewController: UIViewController {
 
     @IBAction func didTapFavoriteIcon(_ sender: UIButton) {
         
-        if RecipeAlreadySaved() {
+        if recipeAlreadySaved() {
             // TODO: Unsave recipe
             
             //Desactivate favorite icon
             favoriteIcon.setImage(UIImage(named: "Favorite Desactivate"), for: .normal)
         } else {
             //Save recipe
-            SaveRecipe(recipeWithDetails)
-
+            saveRecipe()
+            
             //Activate favorite icon
             favoriteIcon.setImage(UIImage(named: "Favorite Activate"), for: .normal)
         }
     }
     
-    //Save recipe
-    private func SaveRecipe(_ recipeToSave: RecipeWithDetails){
-        
-        //Check data
-        var likes: String?
-        var timeInSecond: String?
-        
-        if let rating = recipeToSave.rating {
-            likes = String(rating)
-        }
-        
-        if let time = recipeToSave.totalTimeInSeconds {
-            timeInSecond = String(time)
-        }
-        
-        //Create context
-        let recipeSave = RecipeSave(context: AppDelegate.viewContext)
-        
-        //Implemente context
-        recipeSave.id = recipeWithDetails.id
-        recipeSave.ingredients = recipeWithDetails.ingredientLines.joined(separator: ",")
-        recipeSave.likes = likes
-        recipeSave.name = recipeWithDetails.name
-        recipeSave.timeInSecond = timeInSecond
-        recipeSave.imageUrl = recipeWithDetails.largeImageUrl
-        
-        //Try to save data
-        do {
-            try AppDelegate.viewContext.save()
-        } catch let erreur  {
-            showAlertError(message: "Save failed")
-            print(erreur.localizedDescription)
+    private func saveRecipe() {
+        if !RecipeSave.saveRecipe(recipeWithDetails) {
+            showAlertError(message: "Save failed !")
         }
     }
     
-    private func RecipeAlreadySaved() -> Bool {
-        return RecipeSave.CheckExistenceOf(recipeName: recipeWithDetails.name)
+    private func recipeAlreadySaved() -> Bool {
+        return RecipeSave.checkExistenceOf(recipeName: recipeWithDetails.name)
     }
     
     ///Displays errors

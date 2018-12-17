@@ -11,7 +11,43 @@ import CoreData
 
 class RecipeSave: NSManagedObject {
     
-    static func CheckExistenceOf(recipeName: String)-> Bool {
+    static func saveRecipe(_ recipeToSave: RecipeWithDetails)-> Bool {
+        
+        //Check data
+        var likes: String?
+        var timeInSecond: String?
+        
+        if let rating = recipeToSave.rating {
+            likes = String(rating)
+        }
+        
+        if let time = recipeToSave.totalTimeInSeconds {
+            timeInSecond = String(time)
+        }
+        
+        //Create context
+        let recipeSave = RecipeSave(context: AppDelegate.viewContext)
+        
+        //Implemente context
+        recipeSave.id = recipeToSave.id
+        recipeSave.ingredients = recipeToSave.ingredientLines.joined(separator: ",")
+        recipeSave.likes = likes
+        recipeSave.name = recipeToSave.name
+        recipeSave.timeInSecond = timeInSecond
+        recipeSave.imageUrl = recipeToSave.largeImageUrl
+        
+        //Try to save data
+        do {
+            try AppDelegate.viewContext.save()
+            return true
+        } catch let erreur {
+            print(erreur.localizedDescription)
+        }
+        
+        return false
+    }
+    
+    static func checkExistenceOf(recipeName: String)-> Bool {
         
         //Count of recipe with submentionned name
         var count = 0
