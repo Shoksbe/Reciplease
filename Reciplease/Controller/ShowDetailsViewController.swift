@@ -32,13 +32,9 @@ class ShowDetailsViewController: UIViewController {
                 if self.recipeAlreadySaved() {
                     self.activateFavoriteIcon(true)
                 }
-                
-                // TODO: Create only one imageUrl in getRecipeService
-                guard let url = URL(string: recipeDetails.largeImageUrl!) else { return }
-                guard let data = try? Data(contentsOf: url) else { return }
 
                 self.recipeName.text = recipeDetails.name
-                self.recipeImage.image = UIImage(data: data)
+                self.recipeImage.image = recipeDetails.image
 
                 self.tableview.reloadData()
             }

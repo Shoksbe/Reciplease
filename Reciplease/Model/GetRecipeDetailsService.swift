@@ -56,11 +56,23 @@ class GetRecipeDetailsService {
     }
     
     private func getRecipeDetailsFrom(_ parsedData: GetRecipeDetailsDecodable) -> RecipeWithDetails {
+        
+        //Prepare background image for recipe with details
+        var backgroundImage: UIImage = UIImage(named: "DefaultImageRecipe")!
+        
+        //Find bigest image string url
+        if let imageUrl = recoveryOfTheLargestImageUrl(parsedData) {
+            do {
+                let data = try Data(contentsOf: imageUrl)
+                backgroundImage = UIImage(data: data)!
+            } catch let error {
+                print(error)
+            }
+        }
 
+        //Create a recipe with details
         let recipeWithDetails = RecipeWithDetails(
-            smallImageUrl: parsedData.images[0].hostedSmallURL,
-            mediumImageUrl: parsedData.images[0].hostedMediumURL,
-            largeImageUrl: parsedData.images[0].hostedLargeURL,
+            image: backgroundImage,
             name: parsedData.name,
             id: parsedData.id,
             ingredientLines: parsedData.ingredientLines,

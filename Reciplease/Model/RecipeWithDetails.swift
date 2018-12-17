@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 struct RecipeWithDetails {
-    let smallImageUrl: String?
-    let mediumImageUrl: String?
-    let largeImageUrl: String?
+//    let smallImageUrl: String?
+//    let mediumImageUrl: String?
+//    let largeImageUrl: String?
+    let image: UIImage
     let name: String
     let id: String
     let ingredientLines: [String]

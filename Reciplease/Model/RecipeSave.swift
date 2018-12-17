@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class RecipeSave: NSManagedObject {
     
@@ -34,7 +35,7 @@ class RecipeSave: NSManagedObject {
         recipeSave.likes = likes
         recipeSave.name = recipeToSave.name
         recipeSave.timeInSecond = timeInSecond
-        recipeSave.imageUrl = recipeToSave.largeImageUrl
+        recipeSave.image = recipeToSave.image.pngData()
         
         //Try to save data
         do {
