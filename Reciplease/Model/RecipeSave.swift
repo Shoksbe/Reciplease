@@ -18,7 +18,7 @@ class RecipeSave: NSManagedObject {
         return recipes
     }
     
-    static func saveRecipe(_ recipeToSave: RecipeWithDetails)-> Bool {
+    static func saveRecipe(_ recipeToSave: Recipe)-> Bool {
         
         //Check data
         var likes: String?
@@ -28,7 +28,7 @@ class RecipeSave: NSManagedObject {
             likes = String(rating)
         }
         
-        if let time = recipeToSave.totalTimeInSeconds {
+        if let time = recipeToSave.timeToPrepareInSeconde {
             timeInSecond = String(time)
         }
         
@@ -37,11 +37,11 @@ class RecipeSave: NSManagedObject {
         
         //Implemente context
         recipeSave.id = recipeToSave.id
-        recipeSave.ingredients = recipeToSave.ingredientLines.joined(separator: ",")
+        recipeSave.ingredients = recipeToSave.ingredients.joined(separator: ",")
         recipeSave.likes = likes
         recipeSave.name = recipeToSave.name
         recipeSave.timeInSecond = timeInSecond
-        recipeSave.image = recipeToSave.image.pngData()
+        recipeSave.image = recipeToSave.bigImage!.pngData()
         
         //Try to save data
         do {
@@ -75,7 +75,7 @@ class RecipeSave: NSManagedObject {
         return count > 0
     }
     
-    static func delete(_ recipe: RecipeWithDetails)-> Bool {
+    static func delete(_ recipe: Recipe)-> Bool {
         
         //Request
         let request: NSFetchRequest<RecipeSave> = RecipeSave.fetchRequest()

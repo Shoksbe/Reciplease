@@ -14,7 +14,7 @@ class GetRecipeDetailsService {
     static var shared = GetRecipeDetailsService()
     private init() {}
     
-    func getRecipeDetails(of recipeId: String, callback: @escaping (Bool, RecipeWithDetails?, String?) -> Void) {
+    func getRecipeDetails(of recipeId: String, callback: @escaping (Bool, Recipe?, String?) -> Void) {
         
         //Header for request, contain app id and app key
         let header: HTTPHeaders = ["X-Yummly-App-ID":"252dd2e6",
@@ -55,7 +55,7 @@ class GetRecipeDetailsService {
         }
     }
     
-    private func getRecipeDetailsFrom(_ parsedData: GetRecipeDetailsDecodable) -> RecipeWithDetails {
+    private func getRecipeDetailsFrom(_ parsedData: GetRecipeDetailsDecodable) -> Recipe {
         
         //Prepare background image for recipe with details
         var backgroundImage: UIImage = UIImage(named: "DefaultImageRecipe")!
@@ -71,13 +71,14 @@ class GetRecipeDetailsService {
         }
 
         //Create a recipe with details
-        let recipeWithDetails = RecipeWithDetails(
-            image: backgroundImage,
-            name: parsedData.name,
+        let recipeWithDetails = Recipe(
             id: parsedData.id,
-            ingredientLines: parsedData.ingredientLines,
-            totalTimeInSeconds: parsedData.totalTimeInSeconds,
+            name: parsedData.name,
+            ingredients: parsedData.ingredientLines,
+            timeToPrepareInSeconde: parsedData.totalTimeInSeconds,
             rating: parsedData.rating,
+            smallImage: nil,
+            bigImage: backgroundImage,
             sourceRecipeUrl: parsedData.source.sourceRecipeUrl)
 
         return recipeWithDetails

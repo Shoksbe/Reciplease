@@ -12,7 +12,7 @@ class ShowDetailsViewController: UIViewController {
 
     // Variables: - UICollectionViewFlowLayout
     var recipeToDetailId: String!
-    var recipeWithDetails: RecipeWithDetails!
+    var recipeWithDetails: Recipe!
 
     // MARK: - Outlets
     @IBOutlet weak var recipeImage: UIImageView!
@@ -37,7 +37,7 @@ class ShowDetailsViewController: UIViewController {
                 }
 
                 self.recipeName.text = recipeDetails.name
-                self.recipeImage.image = recipeDetails.image
+                self.recipeImage.image = recipeDetails.bigImage
 
                 self.tableview.reloadData()
                 
@@ -47,11 +47,13 @@ class ShowDetailsViewController: UIViewController {
     }
 
     @IBAction func didTapRecipe(_ sender: UIButton) {
+        
         //Check existence of url's recipe
-        guard let url = URL(string: recipeWithDetails.sourceRecipeUrl) else {
+        guard let sourceUrl = recipeWithDetails.sourceRecipeUrl, let url = URL(string: sourceUrl) else {
             showAlertError(message: "Can not find the destination url")
             return
         }
+        
         //Launch url's recipe
         UIApplication.shared.open(url)
     }
@@ -117,7 +119,7 @@ class ShowDetailsViewController: UIViewController {
 extension ShowDetailsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let number = recipeWithDetails?.ingredientLines.count else { return 0 }
+        guard let number = recipeWithDetails?.ingredients.count else { return 0 }
         return number
     }
 
@@ -127,7 +129,7 @@ extension ShowDetailsViewController: UITableViewDataSource {
         let cell = tableview.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath) as! IngredientTableViewCell
 
         //Implemente cell
-        cell.ingredientName.text = recipeWithDetails.ingredientLines[indexPath.row]
+        cell.ingredientName.text = recipeWithDetails.ingredients[indexPath.row]
 
         return cell
     }

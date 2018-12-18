@@ -75,11 +75,21 @@ extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
         
         let recipe = recipes[indexPath.row]
         
-        cell.backgroundImage.image = recipe.image
-        cell.recipeName.text = recipe.recipeName
+        cell.backgroundImage.image = recipe.smallImage
+        cell.recipeName.text = recipe.name
         cell.ingredients.text = recipe.ingredients.joined(separator: ",")
-        cell.timeToMakeRecipe.text = String(recipe.totalTimeInSeconds/60) + "min"
-        cell.likeCount.text = String(recipe.rating) + "/5"
+        
+        if let time = recipe.timeToPrepareInSeconde {
+            cell.timeToMakeRecipe.text = String(time/60) + "min"
+        } else {
+            cell.timeToMakeRecipe.text = "Unknow"
+        }
+        
+        if let rating = recipe.rating {
+            cell.likeCount.text = String(rating) + "/5"
+        } else {
+            cell.likeCount.text = "Unknow"
+        }
         
         return cell
     }

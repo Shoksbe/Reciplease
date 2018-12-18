@@ -64,6 +64,7 @@ class SearchRecipeService {
         var recipes: [Recipe] = []
         for recipe in parsedData.matches {
 
+            //TODO: - Bug, si pas d'image alors pas de recette. Corriger ca
             var backgroundImage: UIImage!
 
             if let url = URL(string: recipe.imageUrlsBySize.the90) {
@@ -72,11 +73,13 @@ class SearchRecipeService {
 
                     recipes.append(Recipe(
                         id: recipe.id,
-                        recipeName: recipe.recipeName,
+                        name: recipe.recipeName,
                         ingredients: recipe.ingredients,
-                        totalTimeInSeconds: recipe.totalTimeInSeconds,
+                        timeToPrepareInSeconde: recipe.totalTimeInSeconds,
                         rating: recipe.rating,
-                        image: backgroundImage)
+                        smallImage: backgroundImage,
+                        bigImage: nil,
+                        sourceRecipeUrl: nil)
                     )
                 }
             }
