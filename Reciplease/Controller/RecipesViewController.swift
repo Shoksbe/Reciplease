@@ -10,7 +10,8 @@ import UIKit
 
 class RecipesViewController: UIViewController {
 
-    var recipes: [Recipe]!
+    var page: Int = 0
+    var recipes = [Recipe]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIView!
@@ -22,14 +23,15 @@ class RecipesViewController: UIViewController {
     
     
     /// Use the api to get recipes
-    func getRecipes(with ingredients: [String]) {
+    private func getRecipes(with ingredients: [String]) {
         
         shownActivityController(true)
         
-        SearchRecipeService.shared.SearchRecipe(with: ingredients) {
+        SearchRecipeService.shared.SearchRecipe(with: ingredients, page: page) {
             (success, recipes, errorDescription) in
             if success, let searchResult = recipes {
-                self.recipes = searchResult
+                self.page += 1
+                self.recipes.append(contentsOf: searchResult)
                 self.tableView.reloadData()
                 self.shownActivityController(false)
             } else {
@@ -62,8 +64,11 @@ class RecipesViewController: UIViewController {
 
 extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let number = recipes?.count else { return 0 }
-        return number
+        if recipes.count > 0 {
+            return recipes.count
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,18 +103,12 @@ extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
         let recipeToDetails = recipes[indexPath.row]
         performSegue(withIdentifier: "ShowRecipeDetails", sender: recipeToDetails)
     }
-}
-
-
-// MARK: - UICollectionViewFlowLayout
-
-extension RecipesViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let kWhateverHeightYouWant = collectionView.frame.width
-        return CGSize(width: (collectionView.bounds.size.width / 2) - 15, height: CGFloat(kWhateverHeightYouWant))
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == recipes.count - 1 {
+            getRecipes(with: FridgeService.shared.ingredients)
+        }
     }
-    
 }
 
 // MARK: - Segue

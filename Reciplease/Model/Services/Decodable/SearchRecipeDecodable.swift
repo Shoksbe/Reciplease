@@ -16,7 +16,6 @@ struct Match: Codable {
     let imageUrlsBySize: ImageUrlsBySize
     let ingredients: [String]
     let id: String
-    //let smallImageUrls: [String]
     let recipeName: String
     let totalTimeInSeconds: Int
     let rating: Int

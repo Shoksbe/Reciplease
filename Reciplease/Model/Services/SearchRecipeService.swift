@@ -14,10 +14,14 @@ class SearchRecipeService {
     static var shared = SearchRecipeService()
     private init() {}
     
-    func SearchRecipe(with ingredient: [String], callback: @escaping (Bool, [Recipe]?, String?) -> Void) {
+    func SearchRecipe(with ingredient: [String], page: Int, callback: @escaping (Bool, [Recipe]?, String?) -> Void) {
 
+        //Pagination
+        let maxResult = 10
+        let start = page * maxResult
+        
         //Parameters for request, ingredients and requirePictures
-        let parameters: Parameters = ["q":ingredient, "requirePictures": true, "maxResult":"10"]
+        let parameters: Parameters = ["q":ingredient, "maxResult":maxResult, "start": start]
 
         //Header for request, contain app id and app key
         let header: HTTPHeaders = ["X-Yummly-App-ID":"252dd2e6",
@@ -63,28 +67,25 @@ class SearchRecipeService {
     private func getRecipeDataFrom(_ parsedData: SearchRecipeDecodable) -> [Recipe] {
         var recipes: [Recipe] = []
         for recipe in parsedData.matches {
-
-            //TODO: - Bug, si pas d'image alors pas de recette. Corriger ca
-            var backgroundImage: UIImage!
-
+            
+            var backgroundImage: UIImage = UIImage(named: "DefaultImageRecipe")!
+            
             if let url = URL(string: recipe.imageUrlsBySize.the90) {
                 if let data = try? Data(contentsOf: url) {
                     backgroundImage = UIImage(data: data)!
-
-                    recipes.append(Recipe(
-                        id: recipe.id,
-                        name: recipe.recipeName,
-                        ingredients: recipe.ingredients,
-                        timeToPrepareInSeconde: recipe.totalTimeInSeconds,
-                        rating: recipe.rating,
-                        smallImage: backgroundImage,
-                        bigImage: nil,
-                        sourceRecipeUrl: nil)
-                    )
                 }
             }
 
-
+            recipes.append(Recipe(
+                id: recipe.id,
+                name: recipe.recipeName,
+                ingredients: recipe.ingredients,
+                timeToPrepareInSeconde: recipe.totalTimeInSeconds,
+                rating: recipe.rating,
+                smallImage: backgroundImage,
+                bigImage: nil,
+                sourceRecipeUrl: nil)
+            )
         }
         return recipes
     }
