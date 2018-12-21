@@ -34,4 +34,22 @@ class RecipeTableViewCell: UITableViewCell {
         ingredients.text = recipe.ingredients.joined(separator: ",")
     }
     
+    func configure(with recipe: RecipeSave) {
+        
+        if let time = recipe.timeInMinute {
+            timeToMakeRecipe.text = String(time) + "min"
+        } else {
+            timeToMakeRecipe.text = "Unknow"
+        }
+        
+        if let rating = recipe.likes {
+            likeCount.text = String(rating) + "/5"
+        } else {
+            likeCount.text = "Unknow"
+        }
+        
+        backgroundImage.image = UIImage(data: recipe.image!)
+        recipeName.text = recipe.name
+        ingredients.text = recipe.ingredients
+    }
 }

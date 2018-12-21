@@ -10,12 +10,15 @@ import UIKit
 
 class RecipesViewController: UIViewController {
 
+    //MARK: - Variables
     var page: Int = 0
     var recipes = [Recipe]()
     
+    //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIView!
     
+    //MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         shownActivityController(true)
@@ -59,14 +62,14 @@ class RecipesViewController: UIViewController {
     
 }
 
-// MARK: UITableview Datasource and Delegate
+//MARK: - UITableview DataSource and Delegate
 
 extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if recipes.count > 0 {
             return recipes.count
         }
-        
         return 0
     }
     

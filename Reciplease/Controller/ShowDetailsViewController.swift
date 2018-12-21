@@ -10,7 +10,7 @@ import UIKit
 
 class ShowDetailsViewController: UIViewController {
 
-    // Variables: - UICollectionViewFlowLayout
+    // MARK: - Variables
     var recipeToDetailId: String!
     var recipeWithDetails: Recipe!
 
@@ -21,31 +21,7 @@ class ShowDetailsViewController: UIViewController {
     @IBOutlet weak var favoriteIcon: UIButton!
     @IBOutlet weak var activityIndicator: UIView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        shownActivityController(true)
-        
-        // Get recipe's details
-        GetRecipeDetailsService.shared.getRecipeDetails(of: recipeToDetailId) { (success, recipeWithDetails, error) in
-            if success, let recipeDetails = recipeWithDetails {
-
-                self.recipeWithDetails = recipeDetails
-                
-                if self.recipeAlreadySaved() {
-                    self.activateFavoriteIcon(true)
-                }
-
-                self.recipeName.text = recipeDetails.name
-                self.recipeImage.image = recipeDetails.bigImage
-
-                self.tableview.reloadData()
-                
-                self.shownActivityController(false)
-            }
-        }
-    }
-
+    //MARK: - IBAction
     @IBAction func didTapRecipe(_ sender: UIButton) {
         
         //Check existence of url's recipe
@@ -75,6 +51,32 @@ class ShowDetailsViewController: UIViewController {
         }
     }
     
+    //MARK: - Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        shownActivityController(true)
+        
+        // Get recipe's details
+        GetRecipeDetailsService.shared.getRecipeDetails(of: recipeToDetailId) { (success, recipeWithDetails, error) in
+            if success, let recipeDetails = recipeWithDetails {
+                
+                self.recipeWithDetails = recipeDetails
+                
+                if self.recipeAlreadySaved() {
+                    self.activateFavoriteIcon(true)
+                }
+                
+                self.recipeName.text = recipeDetails.name
+                self.recipeImage.image = recipeDetails.bigImage
+                
+                self.tableview.reloadData()
+                
+                self.shownActivityController(false)
+            }
+        }
+    }
+
     private func shownActivityController(_ show: Bool) {
         if show {
             activityIndicator.isHidden = false
@@ -115,7 +117,7 @@ class ShowDetailsViewController: UIViewController {
     }
 }
 
-// MARK: - Tableview datasource
+// MARK: - Tableview DataSource
 extension ShowDetailsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

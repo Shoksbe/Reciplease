@@ -22,14 +22,14 @@ class RecipeSave: NSManagedObject {
         
         //Check data
         var likes: String?
-        var timeInSecond: String?
+        var timeInMinute: String?
         
         if let rating = recipeToSave.rating {
             likes = String(rating)
         }
         
         if let time = recipeToSave.timeToPrepareInSeconde {
-            timeInSecond = String(time)
+            timeInMinute = String(time/60)
         }
         
         //Create context
@@ -40,7 +40,7 @@ class RecipeSave: NSManagedObject {
         recipeSave.ingredients = recipeToSave.ingredients.joined(separator: ",")
         recipeSave.likes = likes
         recipeSave.name = recipeToSave.name
-        recipeSave.timeInSecond = timeInSecond
+        recipeSave.timeInMinute = timeInMinute
         recipeSave.image = recipeToSave.bigImage!.pngData()
         
         //Try to save data

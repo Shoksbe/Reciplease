@@ -9,11 +9,15 @@
 import UIKit
 
 class FavoriteRecipeViewController: UIViewController {
+
+    //MARK: - Variables
     var favoriteRecipes: [RecipeSave]!
     
+    // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var defaultMessage: UIView!
     
+    // MARK: - Methods
     override func viewWillAppear(_ animated: Bool) {
         favoriteRecipes = RecipeSave.all
         
@@ -30,7 +34,7 @@ class FavoriteRecipeViewController: UIViewController {
     }
 }
 
-// MARK: UITableview datasource
+// MARK: - UITableview datasource
 extension FavoriteRecipeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,18 +43,12 @@ extension FavoriteRecipeViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         //Create the cell
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
+        
         // Configure the cell
-        
-        let recipe = favoriteRecipes[indexPath.row]
-        
-        cell.backgroundImage.image = UIImage(data: recipe.image!)
-        cell.recipeName.text = recipe.name
-        cell.ingredients.text = recipe.ingredients
-        cell.timeToMakeRecipe.text = recipe.timeInSecond
-        cell.likeCount.text = recipe.likes
+        cell.configure(with: favoriteRecipes[indexPath.row])
 
         return cell
     }

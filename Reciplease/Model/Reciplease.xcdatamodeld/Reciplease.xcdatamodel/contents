@@ -6,7 +6,7 @@
         <attribute name="ingredients" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="likes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timeInSecond" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeInMinute" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="RecipeSave" positionX="-63" positionY="-18" width="128" height="135"/>
