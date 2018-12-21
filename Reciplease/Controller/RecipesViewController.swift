@@ -18,14 +18,13 @@ class RecipesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        shownActivityController(true)
         getRecipes(with: FridgeService.shared.ingredients)
     }
     
     
     /// Use the api to get recipes
     private func getRecipes(with ingredients: [String]) {
-        
-        shownActivityController(true)
         
         SearchRecipeService.shared.SearchRecipe(with: ingredients, page: page) {
             (success, recipes, errorDescription) in
@@ -77,24 +76,7 @@ extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
         
         // Configure the cell
-        
-        let recipe = recipes[indexPath.row]
-        
-        cell.backgroundImage.image = recipe.smallImage
-        cell.recipeName.text = recipe.name
-        cell.ingredients.text = recipe.ingredients.joined(separator: ",")
-        
-        if let time = recipe.timeToPrepareInSeconde {
-            cell.timeToMakeRecipe.text = String(time/60) + "min"
-        } else {
-            cell.timeToMakeRecipe.text = "Unknow"
-        }
-        
-        if let rating = recipe.rating {
-            cell.likeCount.text = String(rating) + "/5"
-        } else {
-            cell.likeCount.text = "Unknow"
-        }
+        cell.configure(with: recipes[indexPath.row])
         
         return cell
     }
