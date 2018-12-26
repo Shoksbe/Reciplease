@@ -73,6 +73,9 @@ class ShowDetailsViewController: UIViewController {
                 self.tableview.reloadData()
                 
                 self.shownActivityController(false)
+            } else {
+                guard let errorDescription = error else { return }
+                self.showAlertError(message: errorDescription)
             }
         }
     }
