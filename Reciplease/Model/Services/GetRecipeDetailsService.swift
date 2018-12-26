@@ -19,17 +19,21 @@ class GetRecipeDetailsService {
         //Header for request, contain app id and app key
         let header: HTTPHeaders = ["X-Yummly-App-ID":"252dd2e6",
                                    "X-Yummly-App-Key":"afa5977aac4ad8225e73955c196b581e"]
-        
+
         //Api endpoint
-        guard let url = URL(string: "https://api.yummly.com/v1/api/recipe/\(recipeId)") else { return }
-        
+        guard let url = URL(string: "https://api.yummly.com/v1/api/recipe/\(recipeId)") else {
+            print("Error when creating url")
+            callback(false, nil, "Bad url")
+            return
+        }
+
         Alamofire.request(url,
                           method: .get,
                           parameters: nil,
                           headers: header)
             .validate()
             .responseJSON { (response) in
-
+                
                 //Check if the api call return something
                 guard response.result.isSuccess else {
                     print("Error while fetching data.")
@@ -39,12 +43,14 @@ class GetRecipeDetailsService {
 
                 //Check if the response contain data
                 guard let data = response.data else {
+                    print("No data in response")
                     callback(false, nil,  "No data")
                     return
                 }
 
                 //Decode the response's data
                 guard let responseJSON = try? JSONDecoder().decode(GetRecipeDetailsDecodable.self, from: data) else {
+                    print("Error when parse JSON")
                     callback(false, nil,  "Error parse JSON")
                     return
                 }
@@ -56,7 +62,7 @@ class GetRecipeDetailsService {
     }
     
     private func getRecipeDetailsFrom(_ parsedData: GetRecipeDetailsDecodable) -> Recipe {
-        
+
         //Prepare background image for recipe with details
         var backgroundImage: UIImage = UIImage(named: "DefaultImageRecipe")!
         
