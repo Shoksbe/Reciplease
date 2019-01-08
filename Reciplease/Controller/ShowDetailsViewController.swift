@@ -12,7 +12,7 @@ class ShowDetailsViewController: UIViewController {
 
     // MARK: - Variables
     var recipeToDetailId: String!
-    var recipeWithDetails: Recipe!
+    private var recipeWithDetails: Recipe!
 
     // MARK: - Outlets
     @IBOutlet weak var recipeImage: UIImageView!
@@ -113,7 +113,7 @@ class ShowDetailsViewController: UIViewController {
     }
     
     ///Displays errors
-    @objc private func showAlertError(message: String) {
+    private func showAlertError(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)

@@ -11,7 +11,7 @@ import UIKit
 class FavoriteRecipeViewController: UIViewController {
 
     //MARK: - Variables
-    var favoriteRecipes: [RecipeSave]!
+    private var favoriteRecipes: [RecipeSave]!
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!

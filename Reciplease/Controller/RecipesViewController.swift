@@ -11,8 +11,8 @@ import UIKit
 class RecipesViewController: UIViewController {
 
     //MARK: - Variables
-    var page: Int = 0
-    var recipes = [Recipe]()
+    private var page: Int = 0
+    private var recipes = [Recipe]()
     
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -54,7 +54,7 @@ class RecipesViewController: UIViewController {
     }
     
     ///Displays errors
-    @objc private func showAlertError(message: String) {
+    private func showAlertError(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
