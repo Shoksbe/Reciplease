@@ -1,24 +1,38 @@
 //
-//  RecipeSave.swift
+//  RecipeService.swift
 //  Reciplease
 //
-//  Created by Gregory De knyf on 16/12/2018.
-//  Copyright © 2018 De knyf Gregory. All rights reserved.
+//  Created by Gregory De knyf on 22/01/2019.
+//  Copyright © 2019 De knyf Gregory. All rights reserved.
 //
 
 import Foundation
 import CoreData
-import UIKit
 
-class RecipeSave: NSManagedObject {
+class RecipeService {
     
-    static var all: [RecipeSave] {
+    // MARK: Properties
+    let managedObjectContext: NSManagedObjectContext
+    let coreDataStack: CoreDataStack
+    
+    // MARK: Initializers
+    init() {
+        self.managedObjectContext = AppDelegate.coreDataStack.mainContext
+        self.coreDataStack = AppDelegate.coreDataStack
+    }
+    
+    init(managedObjectContext: NSManagedObjectContext, coreDataStack: CoreDataStack) {
+        self.managedObjectContext = managedObjectContext
+        self.coreDataStack = coreDataStack
+    }
+    
+    var all: [RecipeSave] {
         let request: NSFetchRequest<RecipeSave> = RecipeSave.fetchRequest()
-        guard let recipes = try? AppDelegate.viewContext.fetch(request) else {return []}
+        guard let recipes = try? managedObjectContext.fetch(request) else {return []}
         return recipes
     }
     
-    static func saveRecipe(_ recipeToSave: Recipe)-> Bool {
+    func saveRecipe(_ recipeToSave: Recipe)-> Bool {
         
         //Check data
         var likes: String?
@@ -33,7 +47,7 @@ class RecipeSave: NSManagedObject {
         }
         
         //Create context
-        let recipeSave = RecipeSave(context: AppDelegate.viewContext)
+        let recipeSave = RecipeSave(context: managedObjectContext)
         
         //Implemente context
         recipeSave.id = recipeToSave.id
@@ -45,7 +59,7 @@ class RecipeSave: NSManagedObject {
         
         //Try to save data
         do {
-            try AppDelegate.viewContext.save()
+            try managedObjectContext.save()
             return true
         } catch let erreur {
             print(erreur.localizedDescription)
@@ -54,7 +68,7 @@ class RecipeSave: NSManagedObject {
         return false
     }
     
-    static func checkExistenceOf(recipeName: String)-> Bool {
+    func checkExistenceOf(recipeName: String)-> Bool {
         
         //Count of recipe with submentionned name
         var count = 0
@@ -67,7 +81,7 @@ class RecipeSave: NSManagedObject {
         request.fetchLimit = 1
         
         do {
-            count = try AppDelegate.viewContext.count(for: request)
+            count = try managedObjectContext.count(for: request)
         } catch let erreur {
             print(erreur)
         }
@@ -75,7 +89,7 @@ class RecipeSave: NSManagedObject {
         return count > 0
     }
     
-    static func delete(_ recipe: Recipe)-> Bool {
+    func delete(_ recipe: Recipe)-> Bool {
         
         //Request
         let request: NSFetchRequest<RecipeSave> = RecipeSave.fetchRequest()
@@ -84,17 +98,17 @@ class RecipeSave: NSManagedObject {
         request.predicate = NSPredicate(format: "id == %@", recipe.id)
         
         //Fetch request
-        guard let recipe = try? AppDelegate.viewContext.fetch(request) else {
+        guard let recipe = try? managedObjectContext.fetch(request) else {
             print("Error when delete recipe.")
             return false
         }
         
         //Delete recipe
-        AppDelegate.viewContext.delete(recipe[0])
-
+        managedObjectContext.delete(recipe[0])
+        
         //Try to save context
         do {
-            try AppDelegate.viewContext.save()
+            try managedObjectContext.save()
         } catch let error {
             print("Delete recipe failed:", error)
         }

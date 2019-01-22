@@ -117,7 +117,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="cCO-sY-UYC">
-                                                            <rect key="frame" x="15" y="11" width="210" height="22"/>
+                                                            <rect key="frame" x="15" y="11" width="265" height="22"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OrG-dg-fPF">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="22"/>
@@ -130,7 +130,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingrédient" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bao-7Y-vUQ">
-                                                                    <rect key="frame" x="25" y="0.0" width="185" height="22"/>
+                                                                    <rect key="frame" x="25" y="0.0" width="240" height="22"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.97463911800000003" green="0.97463911800000003" blue="0.97463911800000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -332,20 +332,6 @@
                                                         <constraint firstItem="Xn7-zb-sQt" firstAttribute="leading" secondItem="QEo-9n-MSV" secondAttribute="leading" constant="12" id="u2Y-3J-gJK"/>
                                                         <constraint firstAttribute="trailing" secondItem="Xn7-zb-sQt" secondAttribute="trailing" constant="12" id="wd7-b0-gdR"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                            <real key="value" value="0.29999999999999999"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                            <size key="value" width="2" height="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                            <real key="value" value="15"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PcH-5A-fMo" customClass="ImageRounded" customModule="Reciplease" customModuleProvider="target">
                                                     <rect key="frame" x="24" y="8" width="125" height="125"/>
@@ -472,7 +458,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="37b-ye-Emp">
-                                                            <rect key="frame" x="15" y="11" width="250" height="22"/>
+                                                            <rect key="frame" x="15" y="11" width="305" height="22"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLk-gH-Ybt">
                                                                     <rect key="frame" x="0.0" y="0.0" width="28" height="22"/>
@@ -484,7 +470,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingrédient" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbh-m2-xPL">
-                                                                    <rect key="frame" x="28" y="0.0" width="222" height="22"/>
+                                                                    <rect key="frame" x="28" y="0.0" width="277" height="22"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" red="0.99215686270000003" green="0.99607843139999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -748,20 +734,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="zI9-tn-5Dw" secondAttribute="trailing" constant="12" id="noi-3d-pdg"/>
                                                         <constraint firstItem="gfa-ro-SOr" firstAttribute="top" secondItem="Th5-Qn-zfd" secondAttribute="top" constant="8" id="uaw-mH-9gD"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                            <real key="value" value="0.29999999999999999"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                            <size key="value" width="2" height="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                            <real key="value" value="15"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Etm-bO-Gxd" customClass="ImageRounded" customModule="Reciplease" customModuleProvider="target">
                                                     <rect key="frame" x="24" y="8" width="125" height="125"/>
@@ -868,6 +840,6 @@
         <image name="Thumb128" width="102.40000152587891" height="102.40000152587891"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hVh-kc-6mJ"/>
+        <segue reference="GWc-6F-Jnh"/>
     </inferredMetricsTieBreakers>
 </document>

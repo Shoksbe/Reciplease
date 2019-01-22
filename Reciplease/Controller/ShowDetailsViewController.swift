@@ -13,6 +13,7 @@ class ShowDetailsViewController: UIViewController {
     // MARK: - Variables
     var recipeToDetailId: String!
     private var recipeWithDetails: Recipe!
+    private var recipeService = RecipeService()
 
     // MARK: - Outlets
     @IBOutlet weak var recipeImage: UIImageView!
@@ -89,19 +90,19 @@ class ShowDetailsViewController: UIViewController {
     }
     
     private func unsaveRecipe() {
-        if !RecipeSave.delete(recipeWithDetails) {
-            showAlertError(message: "Faile to delete recipe.")
+        if !recipeService.delete(recipeWithDetails) {
+            showAlertError(message: "Failed to delete recipe.")
         }
     }
     
     private func saveRecipe() {
-        if !RecipeSave.saveRecipe(recipeWithDetails) {
+        if !recipeService.saveRecipe(recipeWithDetails) {
             showAlertError(message: "Save failed !")
         }
     }
     
     private func recipeAlreadySaved() -> Bool {
-        return RecipeSave.checkExistenceOf(recipeName: recipeWithDetails.name)
+        return recipeService.checkExistenceOf(recipeName: recipeWithDetails.name)
     }
     
     private func activateFavoriteIcon(_ musteBeActived: Bool) {

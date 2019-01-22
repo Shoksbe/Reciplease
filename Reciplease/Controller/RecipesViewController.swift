@@ -9,7 +9,7 @@
 import UIKit
 
 class RecipesViewController: UIViewController {
-
+    
     //MARK: - Variables
     private var page: Int = 0
     private var recipes = [Recipe]()

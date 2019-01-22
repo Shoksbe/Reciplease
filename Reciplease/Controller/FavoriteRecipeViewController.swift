@@ -12,6 +12,7 @@ class FavoriteRecipeViewController: UIViewController {
 
     //MARK: - Variables
     private var favoriteRecipes: [RecipeSave]!
+    private var recipeService = RecipeService()
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -19,7 +20,7 @@ class FavoriteRecipeViewController: UIViewController {
     
     // MARK: - Methods
     override func viewWillAppear(_ animated: Bool) {
-        favoriteRecipes = RecipeSave.all
+        favoriteRecipes = recipeService.all
         
         /*
          If favorite list is not empty, the liste is showing but
