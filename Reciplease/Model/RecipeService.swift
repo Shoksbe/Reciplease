@@ -57,15 +57,9 @@ class RecipeService {
         recipeSave.timeInMinute = timeInMinute
         recipeSave.image = recipeToSave.bigImage!.pngData()
         
-        //Try to save data
-        do {
-            try managedObjectContext.save()
-            return true
-        } catch let erreur {
-            print(erreur.localizedDescription)
-        }
+        coreDataStack.saveContext(managedObjectContext)
         
-        return false
+        return true
     }
     
     func checkExistenceOf(recipeName: String)-> Bool {
