@@ -26,7 +26,13 @@ class CoreDataStack {
         let container = NSPersistentContainer(name: self.modelName)
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                print("Unresolved error \(error), \(error.userInfo)")
+                
+                let title = "Error with container"
+                let body = "Unable to create the store container for dataBase"
+                let message = [title: body]
+                
+                NotificationCenter.default.post(name: .unableToSaveContext, object: self, userInfo: message)
             }
         }
         return container
@@ -51,7 +57,13 @@ class CoreDataStack {
             do {
                 try context.save()
             } catch let error as NSError {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                print("Unresolved error \(error), \(error.userInfo)")
+                
+                let title = "Error when saving"
+                let body = "Unable to save your data, please try again."
+                let message = [title: body]
+                
+                NotificationCenter.default.post(name: .unableToSaveContext, object: self, userInfo: message)
             }
         }
     }
@@ -61,7 +73,13 @@ class CoreDataStack {
             do {
                 try context.save()
             } catch let error as NSError {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                print("Unresolved error \(error), \(error.userInfo)")
+                
+                let title = "Error when saving"
+                let body = "Unable to save your data, please try again."
+                let message = [title: body]
+
+                NotificationCenter.default.post(name: .unableToSaveContext, object: self, userInfo: message)
             }
             
             self.saveContext(self.mainContext)

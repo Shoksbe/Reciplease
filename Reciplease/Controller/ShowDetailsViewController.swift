@@ -55,6 +55,7 @@ class ShowDetailsViewController: UIViewController {
     //MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(showAlertError(_:)), name: Notification.Name.unableToSaveContext, object: nil)
         
         shownActivityController(true)
         
@@ -118,6 +119,16 @@ class ShowDetailsViewController: UIViewController {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    @objc private func showAlertError(_ notification: Notification) {
+        if let data = notification.userInfo as? [String: String] {
+            if let message = data.first?.value, let title = data.first?.key {
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
     }
 }
 
