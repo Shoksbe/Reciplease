@@ -26,12 +26,18 @@ class RecipeService {
         self.coreDataStack = coreDataStack
     }
     
+    
+    /// Contains all recipe in database
     var all: [RecipeSave] {
         let request: NSFetchRequest<RecipeSave> = RecipeSave.fetchRequest()
         guard let recipes = try? managedObjectContext.fetch(request) else {return []}
         return recipes
     }
     
+    
+    /// Save recipe in database
+    ///
+    /// - Parameter recipeToSave: recipe to save
     func saveRecipe(_ recipeToSave: Recipe) {
         
         //Check data
@@ -60,7 +66,13 @@ class RecipeService {
         coreDataStack.saveContext(managedObjectContext)
     }
     
-    func checkExistenceOf(recipeName: String)-> Bool {
+    
+    
+    /// Check if the recipe exist in database
+    ///
+    /// - Parameter recipeId: recipe's id
+    /// - Returns: A boolean
+    func checkExistenceOf(recipeId: String)-> Bool {
         
         //Count of recipe with submentionned name
         var count = 0
@@ -69,7 +81,7 @@ class RecipeService {
         let request: NSFetchRequest<RecipeSave> = RecipeSave.fetchRequest()
         
         //Predicate
-        request.predicate = NSPredicate(format: "name == %@", recipeName)
+        request.predicate = NSPredicate(format: "id == %@", recipeId)
         request.fetchLimit = 1
         
         do {
@@ -81,13 +93,18 @@ class RecipeService {
         return count > 0
     }
     
-    func delete(_ recipe: Recipe)-> Bool {
+    
+    /// Delete recipe in database
+    ///
+    /// - Parameter recipeId: Recipe'id to delete
+    /// - Returns: A boolean to say if deleting is working
+    func delete(_ recipeId: String)-> Bool {
         
         //Request
         let request: NSFetchRequest<RecipeSave> = RecipeSave.fetchRequest()
         
         //Predicate
-        request.predicate = NSPredicate(format: "id == %@", recipe.id)
+        request.predicate = NSPredicate(format: "id == %@", recipeId)
         
         //Fetch request
         guard let recipe = try? managedObjectContext.fetch(request), recipe.count > 0 else {

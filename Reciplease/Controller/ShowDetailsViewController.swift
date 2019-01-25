@@ -91,7 +91,7 @@ class ShowDetailsViewController: UIViewController {
     }
     
     private func unsaveRecipe() {
-        if !recipeService.delete(recipeWithDetails) {
+        if !recipeService.delete(recipeWithDetails.id) {
             showAlertError(message: "Failed to delete recipe.")
         }
     }
@@ -101,7 +101,7 @@ class ShowDetailsViewController: UIViewController {
     }
     
     private func recipeAlreadySaved() -> Bool {
-        return recipeService.checkExistenceOf(recipeName: recipeWithDetails.name)
+        return recipeService.checkExistenceOf(recipeId: recipeWithDetails.id)
     }
     
     private func activateFavoriteIcon(_ musteBeActived: Bool) {

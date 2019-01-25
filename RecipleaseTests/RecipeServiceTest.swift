@@ -116,10 +116,10 @@ class RecipeServiceTest: XCTestCase {
         recipeService.saveRecipe(recipeSample1)
         recipeService.saveRecipe(recipeSample2)
         
-        let recipeId = "Boudin compote"
+        let recipeId = "1"
         
         //When
-        let recipeExist = recipeService.checkExistenceOf(recipeName: recipeId)
+        let recipeExist = recipeService.checkExistenceOf(recipeId: recipeId)
         
         //Then
         XCTAssertTrue(recipeExist)
@@ -135,7 +135,7 @@ class RecipeServiceTest: XCTestCase {
         let badRecipeId = "Bad id"
         
         //When
-        let recipeExist = recipeService.checkExistenceOf(recipeName: badRecipeId)
+        let recipeExist = recipeService.checkExistenceOf(recipeId: badRecipeId)
         
         //Then
         XCTAssertFalse(recipeExist)
@@ -151,7 +151,7 @@ class RecipeServiceTest: XCTestCase {
         recipeService.saveRecipe(recipeSample2)
         
         //When
-        _ = recipeService.delete(recipeSample1)
+        _ = recipeService.delete(recipeSample1.id)
         let recipes = recipeService.all
         
         //Then
@@ -163,7 +163,7 @@ class RecipeServiceTest: XCTestCase {
         //Given
         
         //When
-        let deleteIsWorking = recipeService.delete(recipeSample1)
+        let deleteIsWorking = recipeService.delete(recipeSample1.id)
         
         //Then
         XCTAssertFalse(deleteIsWorking)
