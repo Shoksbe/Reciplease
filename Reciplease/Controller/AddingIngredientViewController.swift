@@ -88,16 +88,9 @@ extension AddingIngredientViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - Extension for String
-extension String {
-    var containsCharacter: Bool {
-        return self.rangeOfCharacter(from: CharacterSet.letters) != nil
-    }
-}
-
 // MARK: - TextFieldDelegate
 extension AddingIngredientViewController: UITextFieldDelegate {
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         saveIngredient()
         return false
