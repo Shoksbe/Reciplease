@@ -97,9 +97,7 @@ class ShowDetailsViewController: UIViewController {
     }
     
     private func saveRecipe() {
-        if !recipeService.saveRecipe(recipeWithDetails) {
-            showAlertError(message: "Save failed !")
-        }
+        recipeService.saveRecipe(recipeWithDetails)
     }
     
     private func recipeAlreadySaved() -> Bool {

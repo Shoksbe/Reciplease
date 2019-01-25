@@ -33,6 +33,28 @@ class RecipeServiceTest: XCTestCase {
         recipeService = nil
     }
     
+    //MARK: - Helpers
+    
+    private let recipeSample1 = Recipe(id: "1",
+                                       name: "Poulet frite",
+                                       ingredients: ["Poulet","Frites"],
+                                       timeToPrepareInSeconde: 600,
+                                       rating: 4,
+                                       smallImage: nil,
+                                       bigImage: UIImage(),
+                                       sourceRecipeUrl: nil)
+    
+    private let recipeSample2 = Recipe(id: "2",
+                                       name: "Boudin compote",
+                                       ingredients: ["Boudin","Compote"],
+                                       timeToPrepareInSeconde: 300,
+                                       rating: 3,
+                                       smallImage: nil,
+                                       bigImage: UIImage(),
+                                       sourceRecipeUrl: "Fake url")
+    
+    //MARK: - Add
+    
     func testRootContextIsSavedAfterAddingRecipe() {
         
         //New background context to make request on the background
@@ -50,16 +72,105 @@ class RecipeServiceTest: XCTestCase {
                 return true
         }
         
+        //Save recipe
         derivedContext.perform {
-            
-             let recipe = Recipe(id: "1", name: "Poulet frite", ingredients: ["Poulet","Frites"], timeToPrepareInSeconde: 600, rating: 4, smallImage: nil, bigImage: UIImage(), sourceRecipeUrl: nil)
-            
-             _ = self.recipeService.saveRecipe(recipe)
+            self.recipeService.saveRecipe(self.recipeSample1)
         }
         
         waitForExpectations(timeout: 2.0) { error in
             XCTAssertNil(error, "Save did not occur")
         }
     }
+
+    
+    //MARK: - Get
+    
+    func testGiven0RecipeWhenGetRecipeThenCountEqual0() {
+        
+        //Given
+        
+        //When
+        let recipes = recipeService.all
+        
+        //Then
+        XCTAssertEqual(recipes.count, 0)
+        
+    }
+    
+    func testGiven1RecipeWhenGetRecipeThenCountEqual1() {
+        
+        //Given
+        self.recipeService.saveRecipe(recipeSample1)
+        
+        //When
+        let recipes = recipeService.all
+        
+        //Then
+        XCTAssertEqual(recipes.count, 1)
+        
+    }
+    
+    func testGiven2RecipesAnd1IdWhenChackIfRecipeExistThenResultIsTrue() {
+        
+        //Given
+        recipeService.saveRecipe(recipeSample1)
+        recipeService.saveRecipe(recipeSample2)
+        
+        let recipeId = "Boudin compote"
+        
+        //When
+        let recipeExist = recipeService.checkExistenceOf(recipeName: recipeId)
+        
+        //Then
+        XCTAssertTrue(recipeExist)
+        
+    }
+    
+    func testGiven2RecipesAnd1BadIdWhenChackIfRecipeExistThenResultIsFalse() {
+        
+        //Given
+        recipeService.saveRecipe(recipeSample1)
+        recipeService.saveRecipe(recipeSample2)
+        
+        let badRecipeId = "Bad id"
+        
+        //When
+        let recipeExist = recipeService.checkExistenceOf(recipeName: badRecipeId)
+        
+        //Then
+        XCTAssertFalse(recipeExist)
+        
+    }
+    
+    //MARK: - Delete
+    
+    func testGiven2RecipesWhenDelete1RecipeThenCountEqual1() {
+        
+        //Given
+        recipeService.saveRecipe(recipeSample1)
+        recipeService.saveRecipe(recipeSample2)
+        
+        //When
+        _ = recipeService.delete(recipeSample1)
+        let recipes = recipeService.all
+        
+        //Then
+        XCTAssertEqual(recipes.count, 1)
+    }
+    
+    func testGiven0RecipeWhenDeleteRecipeThenIsNotWorking() {
+        
+        //Given
+        
+        //When
+        let deleteIsWorking = recipeService.delete(recipeSample1)
+        
+        //Then
+        XCTAssertFalse(deleteIsWorking)
+        
+    }
+    
+    
+
 
 }

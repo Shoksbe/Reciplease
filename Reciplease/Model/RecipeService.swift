@@ -32,7 +32,7 @@ class RecipeService {
         return recipes
     }
     
-    func saveRecipe(_ recipeToSave: Recipe)-> Bool {
+    func saveRecipe(_ recipeToSave: Recipe) {
         
         //Check data
         var likes: String?
@@ -58,8 +58,6 @@ class RecipeService {
         recipeSave.image = recipeToSave.bigImage!.pngData()
         
         coreDataStack.saveContext(managedObjectContext)
-        
-        return true
     }
     
     func checkExistenceOf(recipeName: String)-> Bool {
@@ -92,7 +90,7 @@ class RecipeService {
         request.predicate = NSPredicate(format: "id == %@", recipe.id)
         
         //Fetch request
-        guard let recipe = try? managedObjectContext.fetch(request) else {
+        guard let recipe = try? managedObjectContext.fetch(request), recipe.count > 0 else {
             print("Error when delete recipe.")
             return false
         }
@@ -100,12 +98,7 @@ class RecipeService {
         //Delete recipe
         managedObjectContext.delete(recipe[0])
         
-        //Try to save context
-        do {
-            try managedObjectContext.save()
-        } catch let error {
-            print("Delete recipe failed:", error)
-        }
+        coreDataStack.saveContext(managedObjectContext)
         
         return true
     }
