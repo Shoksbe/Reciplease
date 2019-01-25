@@ -23,6 +23,14 @@ class AddingIngredientViewController: UIViewController {
        clearListOfIngredients()
     }
     
+    @IBAction func getRecipeButtonDidPressed(_ sender: UIButton) {
+        if FridgeService.shared.ingredients.count > 0 {
+            performSegue(withIdentifier: "GetRecipe", sender: self)
+        } else {
+            showAlertError(title:"Empty fridge", message: "Please enter an ingredient.")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,6 +72,13 @@ class AddingIngredientViewController: UIViewController {
         tableView.reloadData()
     }
     
+    ///Displays errors
+    private func showAlertError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     @objc private func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -96,4 +111,9 @@ extension AddingIngredientViewController: UITextFieldDelegate {
         return false
     }
     
+}
+
+//MARK: - Segue
+extension AddingIngredientViewController {
+
 }

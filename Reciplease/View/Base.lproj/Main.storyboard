@@ -165,7 +165,7 @@
                                             <color key="titleColor" red="0.99215686270000003" green="0.99607843139999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Peh-8Y-H28" kind="show" id="11N-7y-deM"/>
+                                            <action selector="getRecipeButtonDidPressed:" destination="XpD-N0-UZO" eventType="touchUpInside" id="mbL-uv-RpF"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -204,6 +204,7 @@
                     <connections>
                         <outlet property="ingredientTextField" destination="nhD-br-4TS" id="dY2-FK-QmE"/>
                         <outlet property="tableView" destination="5SS-Xb-rqz" id="Xlc-UO-wCl"/>
+                        <segue destination="Peh-8Y-H28" kind="show" identifier="GetRecipe" id="UqB-aB-ah9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OJg-LA-FGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
