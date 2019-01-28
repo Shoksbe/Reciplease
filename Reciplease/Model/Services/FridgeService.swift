@@ -22,4 +22,8 @@ class FridgeService {
     func removeAll() {
         ingredients.removeAll()
     }
+    
+    func removeAt(pos: Int) {
+        ingredients.remove(at: pos)
+    }
 }

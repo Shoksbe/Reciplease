@@ -103,17 +103,27 @@ extension AddingIngredientViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - TextFieldDelegate
-extension AddingIngredientViewController: UITextFieldDelegate {
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        saveIngredient()
-        return false
+//MARK: - TableView Delegate
+extension AddingIngredientViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //tableView.deleteRows(at: [indexPath], with: .automatic)
+            FridgeService.shared.removeAt(pos: indexPath.row)
+            tableView.reloadData()
+        }
     }
     
 }
 
-//MARK: - Segue
-extension AddingIngredientViewController {
-
+// MARK: - TextFieldDelegate
+extension AddingIngredientViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        saveIngredient()
+        return false
+    }
 }
