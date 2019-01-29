@@ -11,7 +11,9 @@ import UIKit
 class FavoriteRecipeViewController: UIViewController {
 
     //MARK: - Variables
+    /// Recipes that are saved in coreData
     private var favoriteRecipes: [RecipeSave]!
+    /// Service used for CRUD
     private var recipeService = RecipeService()
     
     // MARK: - Outlets

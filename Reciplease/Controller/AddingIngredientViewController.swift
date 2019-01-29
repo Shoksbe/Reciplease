@@ -72,13 +72,19 @@ class AddingIngredientViewController: UIViewController {
         tableView.reloadData()
     }
     
-    ///Displays errors
+    
+    /// Display an alert on the screen
+    ///
+    /// - Parameters:
+    ///   - title: Alert's title
+    ///   - message: Alert's message
     private func showAlertError(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
     
+    ///Remove keyboard on the screen
     @objc private func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -112,7 +118,6 @@ extension AddingIngredientViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            //tableView.deleteRows(at: [indexPath], with: .automatic)
             FridgeService.shared.removeAt(pos: indexPath.row)
             tableView.reloadData()
         }

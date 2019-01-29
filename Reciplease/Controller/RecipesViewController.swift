@@ -26,7 +26,10 @@ class RecipesViewController: UIViewController {
     }
     
     
-    /// Use the api to get recipes
+    
+    /// Get recipes from yummly api
+    ///
+    /// - Parameter ingredients: List of ingredients contained in the fridge
     private func getRecipes(with ingredients: [String]) {
         
         SearchRecipeService.shared.SearchRecipe(with: ingredients, page: page) {
@@ -38,7 +41,7 @@ class RecipesViewController: UIViewController {
                 self.shownActivityController(false)
             } else {
                 guard let errorDescription = errorDescription else { return }
-                self.showAlertError(message: errorDescription)
+                self.showAlertError(title: "Error" ,message: errorDescription)
             }
         }
     }
@@ -53,9 +56,13 @@ class RecipesViewController: UIViewController {
         }
     }
     
-    ///Displays errors
-    private func showAlertError(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    /// Display an alert on the screen
+    ///
+    /// - Parameters:
+    ///   - title: Alert's title
+    ///   - message: Alert's message
+    private func showAlertError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
     }

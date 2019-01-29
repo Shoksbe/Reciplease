@@ -14,6 +14,13 @@ class SearchRecipeService {
     static var shared = SearchRecipeService()
     private init() {}
     
+    
+    /// Search all recipes that contain at least one ingredient from the list
+    ///
+    /// - Parameters:
+    ///   - ingredient: The list of available ingredients
+    ///   - page: Which page we want, each page contains ten elements
+    ///   - callback: *Boolean* for success, A table of recipes found, A description of the error if there is one
     func SearchRecipe(with ingredient: [String], page: Int, callback: @escaping (Bool, [Recipe]?, String?) -> Void) {
 
         //Pagination
@@ -64,6 +71,11 @@ class SearchRecipeService {
         }
     }
 
+    
+    /// Extract datat from Json file to create own Recipe Array
+    ///
+    /// - Parameter parsedData: Json file with recipe data
+    /// - Returns: An array of recipe
     private func getRecipeDataFrom(_ parsedData: SearchRecipeDecodable) -> [Recipe] {
         var recipes: [Recipe] = []
         for recipe in parsedData.matches {

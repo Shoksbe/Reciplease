@@ -14,6 +14,12 @@ class GetRecipeDetailsService {
     static var shared = GetRecipeDetailsService()
     private init() {}
     
+    
+    /// Retrieving the details of a recipe
+    ///
+    /// - Parameters:
+    ///   - recipeId: The id of the recipe to find
+    ///   - callback: *Boolean* for success, A table of recipes found, A description of the error if there is one
     func getRecipeDetails(of recipeId: String, callback: @escaping (Bool, Recipe?, String?) -> Void) {
         
         //Header for request, contain app id and app key
@@ -61,6 +67,11 @@ class GetRecipeDetailsService {
         }
     }
     
+    
+    /// Get data into json file to create own recipe
+    ///
+    /// - Parameter parsedData: Json data with detail of recipe
+    /// - Returns: A recipe with detail
     private func getRecipeDetailsFrom(_ parsedData: GetRecipeDetailsDecodable) -> Recipe {
 
         //Prepare background image for recipe with details
@@ -90,6 +101,11 @@ class GetRecipeDetailsService {
         return recipeWithDetails
     }
 
+    
+    /// Find url of the biggest image present in array
+    ///
+    /// - Parameter parsedData: Json data with an array of images
+    /// - Returns: the url of the biggest image
     private func recoveryOfTheLargestImageUrl(_ parsedData: GetRecipeDetailsDecodable) -> URL? {
 
         var urlString: String?

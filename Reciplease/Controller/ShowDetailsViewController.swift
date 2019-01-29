@@ -11,8 +11,11 @@ import UIKit
 class ShowDetailsViewController: UIViewController {
 
     // MARK: - Variables
+    /// The recipe to be detailed
     var recipeToDetailId: String!
+    /// The recipe with detail
     private var recipeWithDetails: Recipe!
+    /// The service used for CRUD with coreData
     private var recipeService = RecipeService()
 
     // MARK: - Outlets
@@ -27,7 +30,7 @@ class ShowDetailsViewController: UIViewController {
         
         //Check existence of url's recipe
         guard let sourceUrl = recipeWithDetails.sourceRecipeUrl, let url = URL(string: sourceUrl) else {
-            showAlertError(message: "Can not find the destination url")
+            showAlertError(title:"Error", message: "Can not find the destination url")
             return
         }
         
@@ -77,7 +80,7 @@ class ShowDetailsViewController: UIViewController {
                 self.shownActivityController(false)
             } else {
                 guard let errorDescription = error else { return }
-                self.showAlertError(message: errorDescription)
+                self.showAlertError(title:"Error", message: errorDescription)
             }
         }
     }
@@ -90,20 +93,30 @@ class ShowDetailsViewController: UIViewController {
         }
     }
     
+    /// Delete recipe from favorite
     private func unsaveRecipe() {
         if !recipeService.delete(recipeWithDetails.id) {
-            showAlertError(message: "Failed to delete recipe.")
+            showAlertError(title: "Error", message: "Failed to delete recipe.")
         }
     }
     
+    ///Add recipe to favorite
     private func saveRecipe() {
         recipeService.saveRecipe(recipeWithDetails)
     }
     
+    
+    /// Verify if the recipe is already saved in coreData
+    ///
+    /// - Returns: A boolean to say if recipe is already saved
     private func recipeAlreadySaved() -> Bool {
         return recipeService.checkExistenceOf(recipeId: recipeWithDetails.id)
     }
     
+    
+    /// Enable or disable the favorite icon
+    ///
+    /// - Parameter musteBeActived: A boolean to say if the icon must be actived
     private func activateFavoriteIcon(_ musteBeActived: Bool) {
         if musteBeActived {
             favoriteIcon.setImage(UIImage(named: "Favorite Activate"), for: .normal)
@@ -112,13 +125,18 @@ class ShowDetailsViewController: UIViewController {
         }
     }
     
-    ///Displays errors
-    private func showAlertError(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    /// Display an alert on the screen
+    ///
+    /// - Parameters:
+    ///   - title: Alert's title
+    ///   - message: Alert's message
+    private func showAlertError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
     
+    ///Launch error alert whit notification
     @objc private func showAlertError(_ notification: Notification) {
         if let data = notification.userInfo as? [String: String] {
             if let message = data.first?.value, let title = data.first?.key {
