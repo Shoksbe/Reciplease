@@ -596,11 +596,27 @@
                         <outlet property="recipeImage" destination="kCc-Tg-Uv2" id="qOK-EN-AOw"/>
                         <outlet property="recipeName" destination="tkD-08-adb" id="vcS-6B-kxo"/>
                         <outlet property="tableview" destination="4Gc-uf-lPh" id="6Ym-0y-A9W"/>
+                        <segue destination="e0s-oT-Zfn" kind="show" identifier="showWebView" id="yfN-AJ-0EI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6F0-hw-coS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2709.5999999999999" y="-612.14392803598207"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="D5F-sf-KRa">
+            <objects>
+                <viewController id="e0s-oT-Zfn" customClass="WebViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iWd-qk-DYb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="HDP-wq-HzN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="djU-pq-CbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3687" y="-612"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EUw-1q-cCe">

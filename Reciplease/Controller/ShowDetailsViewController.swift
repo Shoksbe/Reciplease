@@ -34,8 +34,9 @@ class ShowDetailsViewController: UIViewController {
             return
         }
         
+        performSegue(withIdentifier: "showWebView", sender: url)
         //Launch url's recipe
-        UIApplication.shared.open(url)
+        //UIApplication.shared.open(url)
     }
 
     @IBAction func didTapFavoriteIcon(_ sender: UIButton) {
@@ -165,6 +166,20 @@ extension ShowDetailsViewController: UITableViewDataSource {
         cell.ingredientName.text = recipeWithDetails.ingredients[indexPath.row]
 
         return cell
+    }
+}
+
+// MARK: - Segue
+extension ShowDetailsViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard segue.identifier == "showWebView" else {return}
+        
+        guard let destination = segue.destination as? WebViewController else {return}
+        
+        guard let url = sender as? URL else {return}
+        
+        destination.url = url
     }
 }
 
