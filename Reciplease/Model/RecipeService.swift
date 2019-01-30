@@ -63,6 +63,7 @@ class RecipeService {
         recipeSave.timeInMinute = timeInMinute
         recipeSave.image = recipeToSave.bigImage!.pngData()
         
+        //Save context
         coreDataStack.saveContext(managedObjectContext)
     }
     
