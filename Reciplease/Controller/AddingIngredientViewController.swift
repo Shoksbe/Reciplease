@@ -129,6 +129,7 @@ extension AddingIngredientViewController: UITableViewDelegate {
 extension AddingIngredientViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         saveIngredient()
+        dismissKeyboard()
         return false
     }
 }
