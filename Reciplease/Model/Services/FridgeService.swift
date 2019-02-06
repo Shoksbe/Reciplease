@@ -21,7 +21,11 @@ class FridgeService {
     ///
     /// - Parameter ingredient: Ingredient to add
     func add(ingredient: String) {
-        ingredients.append(ingredient)
+        //Check if ingredient is already save
+        guard let _ = ingredients.firstIndex(where: {$0 == ingredient}) else {
+            ingredients.append(ingredient)
+            return
+        }
     }
     
     

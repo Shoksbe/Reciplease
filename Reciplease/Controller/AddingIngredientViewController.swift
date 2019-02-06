@@ -13,7 +13,22 @@ class AddingIngredientViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var ingredientTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var clearButton: UIButton!
     
+    private var historiqueOfIngredient: [Historique]! {
+        didSet {
+            if historiqueOfIngredient.isEmpty {
+                clearButton.isHidden = true
+                clearButton.isEnabled = false
+            } else {
+                clearButton.isHidden = false
+                clearButton.isEnabled = true
+            }
+        }
+    }
+    private var historiqueService = HistoriqueService()
+
     // MARK: - Actions
     @IBAction func buttonDidPressed(_ sender: UIButton) {
         saveIngredient()
@@ -31,11 +46,20 @@ class AddingIngredientViewController: UIViewController {
         }
     }
     
+    @IBAction func clearHistoriqueButtonDidPressed(_ sender: UIButton) {
+        historiqueService.deleteHistorique()
+        historiqueOfIngredient = historiqueService.all
+        collectionView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        historiqueOfIngredient = historiqueService.all
+        
         //Gesture to remove keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
@@ -53,6 +77,16 @@ class AddingIngredientViewController: UIViewController {
             
             //Adding ingredient to the array
             FridgeService.shared.add(ingredient: ingredientToAdd)
+            
+            //check if ingredient is already save to database
+            if !historiqueService.checkExistenceOf(ingredientName: ingredientToAdd) {
+                //If not, Save ingredient
+                historiqueService.saveIngredient(ingredientToAdd)
+                //Get again all ingredient in historique
+                historiqueOfIngredient = historiqueService.all
+                //Reload collection view to display the new ingredient
+                collectionView.reloadData()
+            }
             
             //Reload tableView to add new ingredient
             tableView.reloadData()
@@ -123,6 +157,30 @@ extension AddingIngredientViewController: UITableViewDelegate {
         }
     }
     
+}
+
+extension AddingIngredientViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return historiqueOfIngredient.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //Create cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "historiqueCell", for: indexPath)
+            as! HistoriqueCell
+        //Implemente Cell
+        cell.setup(historiqueOfIngredient[indexPath.row].ingredient)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //Ingredient tapped
+        let ingredient = historiqueOfIngredient[indexPath.row].ingredient
+        //Add ingredient to the fridge list
+        FridgeService.shared.add(ingredient: ingredient)
+        //Reload tableview to display the new ingredient
+        tableView.reloadData()
+    }
 }
 
 // MARK: - TextFieldDelegate
