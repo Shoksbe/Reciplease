@@ -58,6 +58,11 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="XpD-N0-UZO" id="GTb-9f-ngK"/>
                                                 </connections>
@@ -72,6 +77,11 @@
                                                 <state key="normal" title="+">
                                                     <color key="titleColor" red="0.99215686270000003" green="0.99607843139999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="buttonDidPressed:" destination="XpD-N0-UZO" eventType="touchUpInside" id="ALX-gn-7D6"/>
                                                 </connections>
@@ -245,6 +255,11 @@
                                         <state key="normal" title="Clear">
                                             <color key="titleColor" red="0.99215686270000003" green="0.99607843139999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="clearButtonDidPressed:" destination="XpD-N0-UZO" eventType="touchUpInside" id="dTx-7Z-2bx"/>
                                         </connections>
@@ -259,6 +274,11 @@
                                         <state key="normal" title="Search">
                                             <color key="titleColor" red="0.99215686270000003" green="0.99607843139999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="getRecipeButtonDidPressed:" destination="XpD-N0-UZO" eventType="touchUpInside" id="mbL-uv-RpF"/>
                                         </connections>
@@ -442,6 +462,11 @@
                                                         <constraint firstItem="Xn7-zb-sQt" firstAttribute="leading" secondItem="QEo-9n-MSV" secondAttribute="leading" constant="8" id="im1-eV-7Bx"/>
                                                         <constraint firstItem="Ehs-9e-l2x" firstAttribute="leading" secondItem="QEo-9n-MSV" secondAttribute="leading" constant="132" id="otw-kO-IrU"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PcH-5A-fMo" customClass="ImageRounded" customModule="Reciplease" customModuleProvider="target">
                                                     <rect key="frame" x="24" y="8" width="125" height="125"/>
@@ -654,6 +679,11 @@
                                         <state key="normal" title="Get directions">
                                             <color key="titleColor" red="0.99215686270000003" green="0.99607843139999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="didTapRecipe:" destination="ywp-5V-PYf" eventType="touchUpInside" id="7RK-1d-13g"/>
                                         </connections>
@@ -888,6 +918,11 @@
                                                         <constraint firstItem="gfa-ro-SOr" firstAttribute="leading" secondItem="Th5-Qn-zfd" secondAttribute="leading" constant="132" id="gJm-sj-dEf"/>
                                                         <constraint firstItem="RCT-1G-J0f" firstAttribute="width" secondItem="Th5-Qn-zfd" secondAttribute="width" multiplier="0.8" id="vND-sw-LcQ"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Etm-bO-Gxd" customClass="ImageRounded" customModule="Reciplease" customModuleProvider="target">
                                                     <rect key="frame" x="24" y="8" width="125" height="125"/>
