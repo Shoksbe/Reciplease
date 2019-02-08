@@ -574,7 +574,7 @@
                                         </constraints>
                                         <blurEffect style="light"/>
                                     </visualEffectView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIZZA ROLLS AU CHORIZO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkD-08-adb">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIZZA ROLLS AU CHORIZO" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="tkD-08-adb">
                                         <rect key="frame" x="0.0" y="150" width="320" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="3on-1o-Bxv"/>
@@ -1024,7 +1024,7 @@
         <image name="chevron" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GWc-6F-Jnh"/>
+        <segue reference="hVh-kc-6mJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
