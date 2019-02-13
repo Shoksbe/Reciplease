@@ -30,7 +30,7 @@ class ShowDetailsViewController: UIViewController {
         
         //Check existence of url's recipe
         guard let sourceUrl = recipeWithDetails.sourceRecipeUrl, let url = URL(string: sourceUrl) else {
-            showAlertError(title:"Error", message: "Can not find the destination url")
+            AlertHelper().alert(self, title: "Error", message: "Can not find the destination url")
             return
         }
         
@@ -81,7 +81,7 @@ class ShowDetailsViewController: UIViewController {
                 self.shownActivityController(false)
             } else {
                 guard let errorDescription = error else { return }
-                self.showAlertError(title:"Error", message: errorDescription)
+                AlertHelper().alert(self, title: "Error", message: errorDescription)
             }
         }
     }
@@ -97,7 +97,7 @@ class ShowDetailsViewController: UIViewController {
     /// Delete recipe from favorite
     private func unsaveRecipe() {
         if !recipeService.delete(recipeWithDetails.id) {
-            showAlertError(title: "Error", message: "Failed to delete recipe.")
+            AlertHelper().alert(self, title: "Error", message: "Failed to delete recipe")
         }
     }
     
@@ -126,26 +126,14 @@ class ShowDetailsViewController: UIViewController {
         }
     }
     
-    /// Display an alert on the screen
-    ///
-    /// - Parameters:
-    ///   - title: Alert's title
-    ///   - message: Alert's message
-    private func showAlertError(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.present(alert, animated: true)
-    }
-    
     ///Launch error alert whit notification
     @objc private func showAlertError(_ notification: Notification) {
-        if let data = notification.userInfo as? [String: String] {
-            if let message = data.first?.value, let title = data.first?.key {
-                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-            }
-        }
+        
+        guard let data = notification.userInfo as? [String:String],
+            let message = data.first?.value,
+            let title = data.first?.key else {return}
+        
+        AlertHelper().alert(self, title: title, message: message)
     }
 }
 

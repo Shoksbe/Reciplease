@@ -42,7 +42,7 @@ class AddingIngredientViewController: UIViewController {
         if FridgeService.shared.ingredients.count > 0 {
             performSegue(withIdentifier: "GetRecipe", sender: self)
         } else {
-            showAlertError(title:"Empty fridge", message: "Please enter an ingredient.")
+            AlertHelper().alert(self, title: "Empty fridge", message: "Please enter an ingredient")
         }
     }
     
@@ -104,18 +104,6 @@ class AddingIngredientViewController: UIViewController {
         
         //Reload tableView, she's now empty
         tableView.reloadData()
-    }
-    
-    
-    /// Display an alert on the screen
-    ///
-    /// - Parameters:
-    ///   - title: Alert's title
-    ///   - message: Alert's message
-    private func showAlertError(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.present(alert, animated: true)
     }
     
     ///Remove keyboard on the screen

@@ -37,7 +37,7 @@ class GetRecipeServiceTest: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 15.0)
+        wait(for: [expectation], timeout: 5.0)
     }
 
 
