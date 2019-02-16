@@ -23,8 +23,8 @@ class GetRecipeDetailsService {
     func getRecipeDetails(of recipeId: String, callback: @escaping (Bool, Recipe?, String?) -> Void) {
         
         //Header for request, contain app id and app key
-        let header: HTTPHeaders = ["X-Yummly-App-ID":"252dd2e6",
-                                   "X-Yummly-App-Key":"afa5977aac4ad8225e73955c196b581e"]
+        let header: HTTPHeaders = ["X-Yummly-App-ID":YUMMLY_ID,
+                                   "X-Yummly-App-Key":YUMMLY_KEY]
 
         //Api endpoint
         guard let url = URL(string: "https://api.yummly.com/v1/api/recipe/\(recipeId)") else {
