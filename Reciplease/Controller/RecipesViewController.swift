@@ -80,7 +80,7 @@ extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipeToDetails = recipes[indexPath.row]
-        performSegue(withIdentifier: "ShowRecipeDetails", sender: recipeToDetails)
+        performSegue(withIdentifier: "ShowRecipeDetails", sender: ["recipeToDetailId":recipeToDetails.id, "listOfIngredient": recipeToDetails.ingredients])
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -99,9 +99,15 @@ extension RecipesViewController {
         
         guard let destinationSegue = segue.destination as? ShowDetailsViewController else { return }
         
-        guard let recipe = sender as? Recipe else { return }
+        guard let data = sender as? [String:Any] else { return }
         
-        destinationSegue.recipeToDetailId = recipe.id
+        guard let recipeId = data["recipeToDetailId"] as? String else { return }
+        
+        guard let listOfIngredient = data["listOfIngredient"] as? [String] else { return }
+        
+        destinationSegue.recipeToDetailId = recipeId
+        
+        destinationSegue.listOfIngredient = listOfIngredient
         
     }
 }

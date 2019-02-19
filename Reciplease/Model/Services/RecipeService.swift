@@ -38,7 +38,7 @@ class RecipeService {
     /// Save recipe in database
     ///
     /// - Parameter recipeToSave: recipe to save
-    func saveRecipe(_ recipeToSave: Recipe) {
+    func saveRecipe(_ recipeToSave: Recipe, listOfIngredient: [String]) {
         
         //Check data
         var likes: String?
@@ -57,7 +57,7 @@ class RecipeService {
         
         //Implemente context
         recipeSave.id = recipeToSave.id
-        recipeSave.ingredients = recipeToSave.ingredients.joined(separator: ",")
+        recipeSave.ingredients = listOfIngredient.joined(separator: ",")
         recipeSave.likes = likes
         recipeSave.name = recipeToSave.name
         recipeSave.timeInMinute = timeInMinute

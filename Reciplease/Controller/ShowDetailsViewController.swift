@@ -13,6 +13,8 @@ class ShowDetailsViewController: UIViewController {
     // MARK: - Variables
     /// The recipe to be detailed
     var recipeToDetailId: String!
+    /// List of ingredient
+    var listOfIngredient: [String]!
     /// The recipe with detail
     private var recipeWithDetails: Recipe!
     /// The service used for CRUD with coreData
@@ -103,7 +105,7 @@ class ShowDetailsViewController: UIViewController {
     
     ///Add recipe to favorite
     private func saveRecipe() {
-        recipeService.saveRecipe(recipeWithDetails)
+        recipeService.saveRecipe(recipeWithDetails, listOfIngredient: listOfIngredient)
     }
     
     
