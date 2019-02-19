@@ -33,11 +33,12 @@ class RecipeService {
         guard let recipes = try? managedObjectContext.fetch(request) else {return []}
         return recipes
     }
-    
-    
+
     /// Save recipe in database
     ///
-    /// - Parameter recipeToSave: recipe to save
+    /// - Parameters:
+    ///   - recipeToSave: recipe to save
+    ///   - listOfIngredient: listOfIngredient necessary for the recipe
     func saveRecipe(_ recipeToSave: Recipe, listOfIngredient: [String]) {
         
         //Check data
