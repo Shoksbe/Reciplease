@@ -74,7 +74,7 @@ class RecipeServiceTest: XCTestCase {
         
         //Save recipe
         derivedContext.perform {
-            self.recipeService.saveRecipe(self.recipeSample1)
+            self.recipeService.saveRecipe(self.recipeSample1, listOfIngredient: self.recipeSample1.ingredients)
         }
         
         waitForExpectations(timeout: 2.0) { error in
@@ -100,7 +100,7 @@ class RecipeServiceTest: XCTestCase {
     func testGiven1RecipeWhenGetRecipeThenCountEqual1() {
         
         //Given
-        self.recipeService.saveRecipe(recipeSample1)
+        recipeService.saveRecipe(recipeSample1, listOfIngredient: recipeSample1.ingredients)
         
         //When
         let recipes = recipeService.all
@@ -113,8 +113,8 @@ class RecipeServiceTest: XCTestCase {
     func testGiven2RecipesAnd1IdWhenChackIfRecipeExistThenResultIsTrue() {
         
         //Given
-        recipeService.saveRecipe(recipeSample1)
-        recipeService.saveRecipe(recipeSample2)
+        recipeService.saveRecipe(recipeSample1, listOfIngredient: recipeSample1.ingredients)
+        recipeService.saveRecipe(recipeSample2, listOfIngredient: recipeSample2.ingredients)
         
         let recipeId = "1"
         
@@ -129,8 +129,8 @@ class RecipeServiceTest: XCTestCase {
     func testGiven2RecipesAnd1BadIdWhenChackIfRecipeExistThenResultIsFalse() {
         
         //Given
-        recipeService.saveRecipe(recipeSample1)
-        recipeService.saveRecipe(recipeSample2)
+        recipeService.saveRecipe(recipeSample1, listOfIngredient: recipeSample1.ingredients)
+        recipeService.saveRecipe(recipeSample2, listOfIngredient: recipeSample2.ingredients)
         
         let badRecipeId = "Bad id"
         
@@ -147,8 +147,8 @@ class RecipeServiceTest: XCTestCase {
     func testGiven2RecipesWhenDelete1RecipeThenCountEqual1() {
         
         //Given
-        recipeService.saveRecipe(recipeSample1)
-        recipeService.saveRecipe(recipeSample2)
+        recipeService.saveRecipe(recipeSample1, listOfIngredient: recipeSample1.ingredients)
+        recipeService.saveRecipe(recipeSample2, listOfIngredient: recipeSample2.ingredients)
         
         //When
         _ = recipeService.delete(recipeSample1.id)
