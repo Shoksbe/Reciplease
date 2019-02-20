@@ -230,12 +230,12 @@
 			isa = PBXGroup;
 			children = (
 				3796E6FA218F4BF900BAAE58 /* Info.plist */,
-				37E7110C21D41E18001FFA52 /* SearchRecipeServiceTest.swift */,
-				3754A38A220B6BBC00A8F007 /* HistoriqueServiceTest.swift */,
 				379D79F121FAF7BF00558B49 /* FridgeServiceTest.swift */,
+				37E7110C21D41E18001FFA52 /* SearchRecipeServiceTest.swift */,
 				37E7110E21D42228001FFA52 /* GetRecipeServiceTest.swift */,
 				376B1EB921F718860025866A /* TestCoreDataStack.swift */,
 				376B1EBB21F7194C0025866A /* RecipeServiceTest.swift */,
+				3754A38A220B6BBC00A8F007 /* HistoriqueServiceTest.swift */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -244,11 +244,11 @@
 			isa = PBXGroup;
 			children = (
 				37275F7121C8EDD700CEABBE /* Recipe.swift */,
+				37245FD52214C03F008D103C /* AlertHelper.swift */,
 				372267CE220C6F7800F5B173 /* Api */,
 				375E684F220AE4C400AB8474 /* CoreData */,
-				376B1EBD21F8D9410025866A /* Extension */,
 				37275F6E21C8EC7100CEABBE /* Services */,
-				37245FD52214C03F008D103C /* AlertHelper.swift */,
+				376B1EBD21F8D9410025866A /* Extension */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -269,9 +269,9 @@
 			isa = PBXGroup;
 			children = (
 				3796E708218F7A1D00BAAE58 /* AddingIngredientViewController.swift */,
-				37CE925C21C7B6FD00ECB387 /* FavoriteRecipeViewController.swift */,
 				37CE925A21C7A98300ECB387 /* RecipesViewController.swift */,
 				37BD3D3721A7426500609F77 /* ShowDetailsViewController.swift */,
+				37CE925C21C7B6FD00ECB387 /* FavoriteRecipeViewController.swift */,
 				3732126F2202496400B53D8D /* WebViewController.swift */,
 			);
 			path = Controller;

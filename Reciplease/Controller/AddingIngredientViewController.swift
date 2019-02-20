@@ -31,6 +31,7 @@ class AddingIngredientViewController: UIViewController {
 
     // MARK: - Actions
     @IBAction func buttonDidPressed(_ sender: UIButton) {
+        //Add ingredient to list
         saveIngredient()
     }
     

@@ -27,7 +27,7 @@ class SearchRecipeService {
         let maxResult = 10
         let start = page * maxResult
         
-        //Parameters for request, ingredients and requirePictures
+        //Parameters for request
         let parameters: Parameters = ["q":ingredient, "maxResult":maxResult, "start": start]
 
         //Header for request, contain app id and app key
