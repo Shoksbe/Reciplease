@@ -15,24 +15,31 @@ class FavoriteRecipeViewController: UIViewController {
     private var favoriteRecipes: [RecipeSave]!
     /// Service used for CRUD
     private var recipeService = RecipeService()
+    ///Api call
+    private  let yummlyService = YummlyService()
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var defaultMessage: UIView!
     
     // MARK: - Methods
     override func viewWillAppear(_ animated: Bool) {
         favoriteRecipes = recipeService.all
-        
-        /*
-         If favorite list is not empty, the liste is showing but
-         else a message appear to explain how to fill it.
-        */
-        if favoriteRecipes.count > 0 {
-            tableView.reloadData()
-            defaultMessage.isHidden = true
-        } else {
-            defaultMessage.isHidden = false
+        tableView.reloadData()
+    }
+    
+    
+    /// Get detail's recipe with api call
+    ///
+    /// - Parameter recipeToDetailId: recipe's id to detail
+    private func getDetail(of recipeToDetailId: String) {
+        // Get recipe's details
+        yummlyService.getRecipeDetails(of: recipeToDetailId) { (success, recipeWithDetails, error) in
+            if success, let recipeDetails = recipeWithDetails {
+                self.performSegue(withIdentifier: "ShowRecipeDetails", sender: ["recipeDetail":recipeDetails, "listOfIngredient": recipeDetails.ingredients])
+            } else {
+                guard let errorDescription = error else { return }
+                AlertHelper().alert(self, title: "Error", message: errorDescription)
+            }
         }
     }
 }
@@ -57,8 +64,21 @@ extension FavoriteRecipeViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipeId = favoriteRecipes[indexPath.row].id
-        performSegue(withIdentifier: "ShowRecipeDetails", sender: recipeId)
+        guard let recipeId = favoriteRecipes[indexPath.row].id else { return }
+        getDetail(of: recipeId)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Your favorites list is empty, to fill it go to the search tab and add ingredients. Then you can add recipes to your favorites."
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        return label
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return favoriteRecipes.isEmpty ? 200 : 0
     }
 }
 
@@ -71,9 +91,15 @@ extension FavoriteRecipeViewController {
         
         guard let destinationSegue = segue.destination as? ShowDetailsViewController else { return }
         
-        guard let recipeId = sender as? String else { return }
+        guard let data = sender as? [String:Any] else { return }
         
-        destinationSegue.recipeToDetailId = recipeId
+        guard let recipe = data["recipeDetail"] as? Recipe else { return }
+        
+        guard let listOfIngredient = data["listOfIngredient"] as? [String] else { return }
+        
+        destinationSegue.recipeWithDetails = recipe
+        
+        destinationSegue.listOfIngredient = listOfIngredient
         
     }
 }

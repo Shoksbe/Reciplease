@@ -10,9 +10,12 @@ import UIKit
 
 class RecipesViewController: UIViewController {
     
-    //MARK: - Variables
-    private var page: Int = 0
-    private var recipes = [Recipe]()
+    ///Api call
+    private let yummlyService = YummlyService()
+    ///All recipe get by api
+    var recipes: [Recipe]!
+    ///Use to pass list of ingredient to next controller
+    var listOfIngredient: [String]!
     
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -21,24 +24,17 @@ class RecipesViewController: UIViewController {
     //MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        shownActivityController(true)
-        getRecipes(with: FridgeService.shared.ingredients)
+        yummlyService.page = 1
     }
-    
-    
     
     /// Get recipes from yummly api
     ///
     /// - Parameter ingredients: List of ingredients contained in the fridge
-    private func getRecipes(with ingredients: [String]) {
-        
-        SearchRecipeService.shared.SearchRecipe(with: ingredients, page: page) {
-            (success, recipes, errorDescription) in
+    func getRecipes(with ingredients: [String]) {
+        yummlyService.getRecipe(with: ingredients) { (success, recipes, errorDescription) in
             if success, let searchResult = recipes {
-                self.page += 1
                 self.recipes.append(contentsOf: searchResult)
                 self.tableView.reloadData()
-                self.shownActivityController(false)
             } else {
                 guard let errorDescription = errorDescription else { return }
                 AlertHelper().alert(self, title: "Error", message: errorDescription)
@@ -46,15 +42,22 @@ class RecipesViewController: UIViewController {
         }
     }
     
-    private func shownActivityController(_ show: Bool) {
-        if show {
-            activityIndicator.isHidden = false
-            tableView.isHidden = true
-        } else {
-            activityIndicator.isHidden = true
-            tableView.isHidden = false
+    /// Get detail's recipe with api call
+    ///
+    /// - Parameter recipeToDetailId: recipe's id to detail
+    private func getDetail(of recipeToDetailId: String) {
+        // Get recipe's details
+        yummlyService.getRecipeDetails(of: recipeToDetailId) { (success, recipeWithDetails, error) in
+            if success, let recipeDetails = recipeWithDetails {
+                self.performSegue(withIdentifier: "ShowRecipeDetails",
+                                  sender: ["recipeDetail":recipeDetails, "listOfIngredient": self.listOfIngredient])
+            } else {
+                guard let errorDescription = error else { return }
+                AlertHelper().alert(self, title: "Error", message: errorDescription)
+            }
         }
     }
+    
 }
 
 //MARK: - UITableview DataSource and Delegate
@@ -80,7 +83,8 @@ extension RecipesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipeToDetails = recipes[indexPath.row]
-        performSegue(withIdentifier: "ShowRecipeDetails", sender: ["recipeToDetailId":recipeToDetails.id, "listOfIngredient": recipeToDetails.ingredients])
+        listOfIngredient = recipeToDetails.ingredients
+        getDetail(of: recipeToDetails.id)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -101,11 +105,11 @@ extension RecipesViewController {
         
         guard let data = sender as? [String:Any] else { return }
         
-        guard let recipeId = data["recipeToDetailId"] as? String else { return }
+        guard let recipe = data["recipeDetail"] as? Recipe else { return }
         
         guard let listOfIngredient = data["listOfIngredient"] as? [String] else { return }
         
-        destinationSegue.recipeToDetailId = recipeId
+        destinationSegue.recipeWithDetails = recipe
         
         destinationSegue.listOfIngredient = listOfIngredient
         

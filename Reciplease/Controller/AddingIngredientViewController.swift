@@ -16,6 +16,9 @@ class AddingIngredientViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var clearButton: UIButton!
     
+    //MARK: - Variables
+    private let yummlyService = YummlyService()
+    
     private var historiqueOfIngredient: [Historique]! {
         didSet {
             if historiqueOfIngredient.isEmpty {
@@ -41,7 +44,7 @@ class AddingIngredientViewController: UIViewController {
     
     @IBAction func getRecipeButtonDidPressed(_ sender: UIButton) {
         if FridgeService.shared.ingredients.count > 0 {
-            performSegue(withIdentifier: "GetRecipe", sender: self)
+            getRecipes(with: FridgeService.shared.ingredients)
         } else {
             AlertHelper().alert(self, title: "Empty fridge", message: "Please enter an ingredient")
         }
@@ -65,6 +68,20 @@ class AddingIngredientViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+    /// Get recipes from yummly api
+    ///
+    /// - Parameter ingredients: List of ingredients contained in the fridge
+    func getRecipes(with ingredients: [String]) {
+        yummlyService.getRecipe(with: ingredients) { (success, recipes, errorDescription) in
+            if success, let searchResult = recipes {
+                self.performSegue(withIdentifier: "GetRecipe", sender: searchResult)
+            } else {
+                guard let errorDescription = errorDescription else { return }
+                AlertHelper().alert(self, title: "Error", message: errorDescription)
+            }
+        }
+    }
     
     //Save ingredient in ingredients array and reloadData
     private func saveIngredient() {
@@ -169,6 +186,15 @@ extension AddingIngredientViewController: UICollectionViewDataSource, UICollecti
         FridgeService.shared.add(ingredient: ingredient)
         //Reload tableview to display the new ingredient
         tableView.reloadData()
+    }
+}
+//MARK: - Navigation
+extension AddingIngredientViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "GetRecipe" else { return }
+        guard let destination = segue.destination as? RecipesViewController else { return }
+        guard let recipes = sender as? [Recipe] else { return }
+        destination.recipes = recipes
     }
 }
 

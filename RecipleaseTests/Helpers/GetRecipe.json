@@ -1,0 +1,60 @@
+{
+    "criteria": {
+        "q": "onion soup",
+        "allowedIngredient": null,
+        "excludedIngredient": null
+    },
+    "matches": [
+        {
+            "imageUrlsBySize": {
+                "90": "https://lh3.googleusercontent.com/S8NPT1EeY_KISC8TgnjAcOcF9I3ZONF9QzX-siRxK_40fAYq1gYi9n0yACDK5Dko_duCnKXQ7EcVf_2AqhVD=s90-c"
+            },
+            "sourceDisplayName": "Spend with Pennies",
+            "ingredients": [
+                "onions",
+                "brown sugar",
+                "butter",
+                "beef broth",
+                "dry white wine",
+                "fresh thyme",
+                "bay leaf",
+                "pepper",
+                "Worcestershire sauce",
+                "baguette",
+                "gruyere cheese",
+                "fresh parmesan cheese"
+            ],
+            "id": "French-Onion-Soup-2607791",
+            "smallImageUrls": [
+                "https://lh3.googleusercontent.com/zGWwy9B6DwLxCUdevGw4dgVgsb7su9a4EOfj1KtiMTi27RChoXfgvhoi2yOELQt7F00OZMMBUUpkW56vxPzREuc=s90"
+            ],
+            "recipeName": "French Onion Soup",
+            "totalTimeInSeconds": 5700,
+            "attributes": {
+                "course": [
+                    "Soups"
+                ],
+                "cuisine": [
+                    "French"
+                ]
+            },
+            "flavors": {
+                "piquant": 0.8333333333333334,
+                "meaty": 0.16666666666666666,
+                "bitter": 0.3333333333333333,
+                "sweet": 0.16666666666666666,
+                "sour": 0.16666666666666666,
+                "salty": 0.6666666666666666
+            },
+            "rating": 4
+        }
+    ],
+    "facetCounts": {},
+    "totalMatchCount": 74401,
+    "attribution": {
+        "html": "Recipe search powered by <a href='http://www.yummly.co/recipes'><img alt='Yummly' src='https://static.yummly.co/api-logo.png'/></a>",
+        "url": "http://www.yummly.co/recipes/",
+        "text": "Recipe search powered by Yummly",
+        "logo": "https://static.yummly.co/api-logo.png"
+    }
+}

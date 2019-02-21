@@ -11,12 +11,11 @@ import UIKit
 class ShowDetailsViewController: UIViewController {
 
     // MARK: - Variables
-    /// The recipe to be detailed
-    var recipeToDetailId: String!
+    
     /// List of ingredient
     var listOfIngredient: [String]!
     /// The recipe with detail
-    private var recipeWithDetails: Recipe!
+    var recipeWithDetails: Recipe!
     /// The service used for CRUD with coreData
     private var recipeService = RecipeService()
 
@@ -63,37 +62,14 @@ class ShowDetailsViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(showAlertError(_:)), name: Notification.Name.unableToSaveContext, object: nil)
         
-        shownActivityController(true)
+        if recipeAlreadySaved() {
+            activateFavoriteIcon(true)
+        }
         
-        // Get recipe's details
-        GetRecipeDetailsService.shared.getRecipeDetails(of: recipeToDetailId) { (success, recipeWithDetails, error) in
-            if success, let recipeDetails = recipeWithDetails {
-                
-                self.recipeWithDetails = recipeDetails
-                
-                if self.recipeAlreadySaved() {
-                    self.activateFavoriteIcon(true)
-                }
-                
-                self.recipeName.text = recipeDetails.name
-                self.recipeImage.image = recipeDetails.bigImage
-                
-                self.tableview.reloadData()
-                
-                self.shownActivityController(false)
-            } else {
-                guard let errorDescription = error else { return }
-                AlertHelper().alert(self, title: "Error", message: errorDescription)
-            }
-        }
-    }
-
-    private func shownActivityController(_ show: Bool) {
-        if show {
-            activityIndicator.isHidden = false
-        } else {
-            activityIndicator.isHidden = true
-        }
+        recipeName.text = recipeWithDetails.name
+        recipeImage.image = recipeWithDetails.bigImage
+        
+        self.tableview.reloadData()
     }
     
     /// Delete recipe from favorite

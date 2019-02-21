@@ -969,45 +969,20 @@
                                     <outlet property="delegate" destination="hgr-TN-aXX" id="AZF-Nd-o6w"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QdD-JC-koq" userLabel="Empty Table background">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Your favorites list is empty, to fill it go to the search tab and add ingredients. Then you can add recipes to your favorites." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g17-Ii-vVM">
-                                        <rect key="frame" x="40" y="184" width="240" height="87"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="8JL-Vk-sVU"/>
-                                            <constraint firstAttribute="height" constant="87" id="rYQ-iK-rxA"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="g17-Ii-vVM" firstAttribute="centerX" secondItem="QdD-JC-koq" secondAttribute="centerX" id="P3a-HG-dkK"/>
-                                    <constraint firstItem="g17-Ii-vVM" firstAttribute="centerY" secondItem="QdD-JC-koq" secondAttribute="centerY" id="qNu-wl-kvE"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qyg-k9-WSz" firstAttribute="bottom" secondItem="ZXH-SH-VVk" secondAttribute="bottom" constant="10" id="2gT-4W-Ukp"/>
-                            <constraint firstItem="QdD-JC-koq" firstAttribute="top" secondItem="qyg-k9-WSz" secondAttribute="top" id="4Vk-XE-OXG"/>
                             <constraint firstItem="DCm-L4-coa" firstAttribute="centerY" secondItem="k2i-bw-XoW" secondAttribute="centerY" id="6IW-co-avp"/>
                             <constraint firstItem="ZXH-SH-VVk" firstAttribute="leading" secondItem="qyg-k9-WSz" secondAttribute="leading" id="89O-qG-puk"/>
-                            <constraint firstItem="QdD-JC-koq" firstAttribute="bottom" secondItem="qyg-k9-WSz" secondAttribute="bottom" id="CMP-I1-fxx"/>
                             <constraint firstItem="DCm-L4-coa" firstAttribute="centerX" secondItem="k2i-bw-XoW" secondAttribute="centerX" id="GVw-z5-vrL"/>
                             <constraint firstItem="ZXH-SH-VVk" firstAttribute="trailing" secondItem="qyg-k9-WSz" secondAttribute="trailing" id="P5i-W6-4SL"/>
                             <constraint firstItem="ZXH-SH-VVk" firstAttribute="top" secondItem="qyg-k9-WSz" secondAttribute="top" constant="10" id="RYa-SF-tWT"/>
-                            <constraint firstItem="QdD-JC-koq" firstAttribute="trailing" secondItem="qyg-k9-WSz" secondAttribute="trailing" id="W4R-5c-dAG"/>
-                            <constraint firstItem="QdD-JC-koq" firstAttribute="leading" secondItem="qyg-k9-WSz" secondAttribute="leading" id="zDQ-6m-I27"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qyg-k9-WSz"/>
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="z5u-uA-JYh"/>
                     <connections>
-                        <outlet property="defaultMessage" destination="QdD-JC-koq" id="dqN-xH-iWK"/>
                         <outlet property="tableView" destination="ZXH-SH-VVk" id="gfs-qc-YJi"/>
                         <segue destination="ywp-5V-PYf" kind="show" identifier="ShowRecipeDetails" id="hVh-kc-6mJ"/>
                     </connections>
